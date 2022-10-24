@@ -14,8 +14,10 @@ struct Monster
 };
 typedef struct Monster Monster;
 
-Monster *importMonsterByName(char name[]);
-Monster *importRandomMonster();
+Monster *importMonsterByName(FILE *f, char name[]);
+Monster *importMonsterById(FILE *f, unsigned int id);
+Monster *importRandomMonster(FILE *f);
+unsigned int getNumberOfMonsterInFile(FILE *f);
 char *duplicateString(char *);
 void printMonster(Monster *monster);
 void freeMonster(Monster *monster);
