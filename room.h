@@ -5,8 +5,9 @@
 #define ROOM
 
 void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *columns, unsigned int index);
-void deleteRoom(FILE *f, unsigned int index);
+void deleteRoom(FILE *f, unsigned int index); // EN DEVELOPEMENT
 int **importRoomFromFile(FILE *f, unsigned int index);
+int **importRandomRoomFromFile(FILE *f);
 unsigned int getNumberOfMapInFile(FILE *f);
 unsigned int getRowsInSelectedRoom(FILE *f, unsigned int index);
 unsigned int getColumnsInSelectedRoom(FILE *f, unsigned int index);

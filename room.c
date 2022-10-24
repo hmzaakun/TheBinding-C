@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
+
+int **importRandomRoomFromFile(FILE *f)
+{
+    unsigned int nbrOfRoom = getNumberOfMapInFile(f);
+    srand(time(NULL));
+    unsigned int randomRoomId = rand() % nbrOfRoom + 1;
+    return importRoomFromFile(f, randomRoomId);
+}
 
 void deleteRoom(FILE *f, unsigned int index)
 {
@@ -160,7 +169,6 @@ int **importRoomFromFile(FILE *f, unsigned int index)
 
     if (f != NULL)
     {
-
         char str[100];
         unsigned int rows = 0;
         unsigned int columns = 0;
