@@ -88,9 +88,11 @@ void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *
     if (f != NULL)
     {
         fseek(f, 0, SEEK_SET);
-        // printf("Room recherche : %d\n", index);
         // RECHERCHE DE LA MAP DEMANDE
         unsigned int bool = 0;
+        fgets(str, 100, f);
+        //printf("%s", str);
+        printf(getchar(stdin));
         do
         {
             unsigned int indice = 0;
@@ -166,7 +168,7 @@ int **importRoomFromFile(FILE *f, unsigned int index)
         printf("L'index de la map n'existe pas dans le fichier");
         return 0;
     }
-
+    
     if (f != NULL)
     {
         char str[100];
