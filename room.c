@@ -92,9 +92,9 @@ void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *
         // printf("RECHERCHE NBR DE MAP TOTAL...\n");
         char str[100];
         fgets(str, 100, f);
-        fgets(str, 100, f);
         while (bool != 1)
         {
+            fgets(str, 100, f);
             unsigned int idRoom = 0;
             *rows = 0;
             *columns = 0;
