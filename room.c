@@ -220,7 +220,7 @@ unsigned int getNumberOfMapInFile(FILE *f)
     if (f != NULL)
     {
         fseek(f, 0, SEEK_SET);
-        printf("RECHERCHE NBR DE MAP TOTAL...\n");
+        // printf("RECHERCHE NBR DE MAP TOTAL...\n");
         char str[100];
         fgets(str, 100, f); // Récupère la première ligne du fichier
         // printf("%s", str);
@@ -238,7 +238,7 @@ unsigned int getNumberOfMapInFile(FILE *f)
             {
                 numberOfMap += (str[i] - 48) * pow(10, nbrChiffreInNumber - i);
             }
-            printf("Number of map in file : %d\n", numberOfMap);
+            // printf("Number of ID in file : %d\n", numberOfMap);
             return numberOfMap;
         }
         else

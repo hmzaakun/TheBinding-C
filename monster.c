@@ -37,14 +37,41 @@ Monster *importMonsterById(FILE *f, unsigned int id)
         printf("L'id du monstre n'existe pas dans le fichier");
         return 0;
     }
-    printf("number of monster : %d", numberOfMonsterInFile);
+    printf("Number of monster in file : %d\n", numberOfMonsterInFile);
 
     Monster *monster = malloc(sizeof(Monster));
+    char str[100];
     if (f != NULL)
     {
+        int bool = 0;
+        int counter = 0;
+        do
+        {
+            fgets(str, 100, f);
+            if (str[0] == '-' && str[1] == '-' && str[2] == '-')
+            {
+                counter++;
+                for (int i = 0; i < 4; i++)
+                {
+                    fgets(str, 100, f);
+                    if (str[0] == 'n' && str[1] == 'a' && str[2] == 'm' && str[3] == 'e' && str[4] == '=')
+                    {
+                        for (int j = 0; j < 100; j++)
+                        {
+                        }
+                        // monster->name = duplicateString(name);
+                    }
+                }
+            }
+            if (counter == id)
+            {
+                bool = 1;
+            }
+        } while (bool == 0);
     }
     else
     {
+        printf("Erreur le fichier n'est pas ouvert !\n");
     }
 
     return monster;
@@ -52,7 +79,7 @@ Monster *importMonsterById(FILE *f, unsigned int id)
 
 unsigned int getNumberOfMonsterInFile(FILE *f)
 {
-    getNumberOfMapInFile(f);
+    return getNumberOfMapInFile(f);
 }
 
 char *duplicateString(char *str)

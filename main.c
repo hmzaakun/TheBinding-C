@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "room.h"
 #include "monster.h"
+#include "object.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,8 +18,8 @@ int main(int argc, char *argv[])
     fclose(maps);
 
     // FILE *monsters = fopen("monsters.mtbob", "r");
-    // Monster *monster = importMonsterById(monsters, 1);
-    // printMonster(monster);
+    // Monster *monster = importMonsterById(monsters, 5);
+    // // printMonster(monster);
     // freeMonster(monster);
     return 0;
 }
