@@ -87,18 +87,17 @@ void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *
 {
     if (f != NULL)
     {
-        fseek(f, 0, SEEK_SET);
-        // RECHERCHE DE LA MAP DEMANDE
         unsigned int bool = 0;
+        fseek(f, 0, SEEK_SET);
+        // printf("RECHERCHE NBR DE MAP TOTAL...\n");
+        char str[100];
         fgets(str, 100, f);
-        //printf("%s", str);
-        printf("%d", getchar());
-        do
+        fgets(str, 100, f);
+        while (bool != 1)
         {
-            unsigned int indice = 0;
+            unsigned int idRoom = 0;
             *rows = 0;
             *columns = 0;
-            fgets(str, 100, f);
             if (str[0] == '[')
             {
                 // GET NBR ROWS JUSQUA 99 MAX
@@ -130,23 +129,23 @@ void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *
                     // GET INDICE (ID DE LA PIECE) JUSQUA 99 MAX
                     if (str[i] == ']')
                     {
-                        if (str[i + 2] != '\n')
+                        if (str[i + 2] > '9' && str[i + 2] < '0')
                         {
-                            indice += (str[i + 1] - 48) * 10;
-                            indice += str[i + 2] - 48;
+                            idRoom += (str[i + 1] - 48) * 10;
+                            idRoom += str[i + 2] - 48;
                             // printf("%d", str[2]);
                         }
                         else
                         {
-                            indice += str[i + 1] - 48;
+                            idRoom += str[i + 1] - 48;
                             // printf("%d:", indice);
                         }
-                        if (indice == index)
+                        if (idRoom == index)
                             bool = 1;
                     }
                 }
             }
-        } while (bool != 1);
+        }
     }
     else
     {
@@ -168,7 +167,7 @@ int **importRoomFromFile(FILE *f, unsigned int index)
         printf("L'index de la map n'existe pas dans le fichier");
         return 0;
     }
-    
+
     if (f != NULL)
     {
         char str[100];
@@ -177,7 +176,7 @@ int **importRoomFromFile(FILE *f, unsigned int index)
         printf("Room recherche : %d\n", index);
         getRoomInformations(f, str, &rows, &columns, index);
         // INFORMATIONS ON SELECTED ROOM
-        printf("%s", str);
+        // printf("%s", str);
         printf("rows : %d\n", rows);
         printf("columns : %d\n", columns);
 
