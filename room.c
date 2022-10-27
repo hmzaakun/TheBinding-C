@@ -92,7 +92,7 @@ void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *
         unsigned int bool = 0;
         fgets(str, 100, f);
         //printf("%s", str);
-        printf(getchar(stdin));
+        printf("%d", getchar());
         do
         {
             unsigned int indice = 0;
