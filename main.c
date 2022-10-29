@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
     //char str[100];
     //printf("%c", test[0]);
     //fgets(str, 100, maps);
-    int **arena = importRandomRoomFromFile(maps);
-    freeArray2D(arena, 9);
+  	deleteRoom(maps,4);
+   
     fclose(maps);
 
     // deleteRoom(maps, 3);

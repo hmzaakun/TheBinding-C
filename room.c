@@ -14,41 +14,80 @@ int **importRandomRoomFromFile(FILE *f)
 }
 
 void deleteRoom(FILE *f, unsigned int index)
+
+
 {
-    int numberOfMap = getNumberOfMapInFile(f);
-    if (numberOfMap == 0 || index > numberOfMap)
+ FILE* temp = NULL;
+
+    temp = fopen("temp.txt", "w+");
+    char chaine[100] = "";
+     char chaine1[100] = "";
+    int row= 0;
+    
+    
+   
+    int startDel = 1+ (index-1) * 10;
+    int endDel =  startDel + 9;
+     int numberOfMap = getNumberOfMapInFile(f);
+    
+    if (numberOfMap == 0 || index > numberOfMap) 
+    // penser a enlever le if pcq on va fair un menu donc on pourra faire un do while numberOfMap == 0 || index > numberOfMap
     {
         printf("L'index de la map a supprimer n'existe pas dans le fichier");
         return;
     }
+    
 
+	
     if (f != NULL)
     {
-        fseek(f, 0, SEEK_SET); // Pointeur au début du fichier
-        char str[100];
-        fgets(str, 100, f); // Récupère la première ligne du fichier
-        printf("%s", str);
-
-        unsigned int rows = 0;
-        unsigned int columns = 0;
-        printf("Room recherche : %d\n", index);
-        getRoomInformations(f, str, &rows, &columns, index);
-        // INFORMATIONS ON SELECTED ROOM
-        // printf("%s", str);
-        // printf("rows : %d\n", rows);
-        // printf("columns : %d\n", columns);
-
-        for (int i = 0; i < 100; i++)
+    fseek(f, 0, SEEK_SET);
+   
+        while (fgets(chaine,100, f) != NULL) 
         {
-            str[i] = 127;
+        
+        ++row;
+        if(row >= startDel && row <= endDel){
+          fputs("",temp);
+          
+        }else{
+        if(row == 1 ) {
+        chaine[1]--;
         }
+        if(row%10==2 && row > (endDel+1)){ 
+        chaine[6]--;
+        
+        
+         fputs(chaine,temp);
+         }else{
+         fputs(chaine,temp);
+         
+        
     }
+    }
+    }
+    }
+    
     else
     {
         printf("Erreur lors de l'ouverture du fichier");
-        return;
+       
     }
+    
+    fclose(f);
+    f = fopen("maps.rtbob", "w+");
+	fseek(temp, 0, SEEK_SET);
+    while (fgets(chaine1,100, temp) != NULL) 
+        {
+         fputs(chaine1,f);
+
+    }
+    
+    fclose(temp);
+    
+    return;
 }
+
 
 unsigned int getRowsInSelectedRoom(FILE *f, unsigned int index)
 {
