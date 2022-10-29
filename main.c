@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     //char str[100];
     //printf("%c", test[0]);
     //fgets(str, 100, maps);
-  	deleteRoom(maps,4);
+  	deleteRoom(maps,1);
    
     fclose(maps);
 
