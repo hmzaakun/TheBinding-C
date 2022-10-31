@@ -1,4 +1,4 @@
-{5}
+{6}
 ---
 name=Pooter
 hpMax=8
@@ -14,6 +14,11 @@ hpMax=6.5
 name=Bony
 hpMax=8
 shoot=true
+---
+name=Skeleton
+hpMax=5
+shoot=true
+ss=true
 ---
 name=Vis
 hpMax=15

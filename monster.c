@@ -8,20 +8,60 @@
 
 Monster *importMonsterByName(FILE *f, char name[])
 {
-    Monster *monster = malloc(sizeof(Monster));
-    monster->name = duplicateString(name);
-    monster->hpMax = 10;
-    monster->shoot = 1;
-    monster->spectralShot = 0;
-    monster->flight = 1;
-    return monster;
 }
 
 Monster *importRandomMonster(FILE *f)
 {
-    Monster *monster = malloc(sizeof(Monster));
+    unsigned int nbrOfMonster = getNumberOfMonsterInFile(f);
+    srand(time(NULL));
+    unsigned int randomMonsterId = rand() % nbrOfMonster + 1;
+    printf("ID du random Monster : %d\n", randomMonsterId);
+    return importMonsterById(f, randomMonsterId);
+}
 
-    return monster;
+void getMonsterInformation(FILE *f, char str[], Monster *monster)
+{
+    if (f != NULL)
+    {
+        fgets(str, 100, f);
+        // printf("%s", str);
+        if (str[0] == 'n' && str[1] == 'a' && str[2] == 'm' && str[3] == 'e' && str[4] == '=')
+        {
+            char name[20];
+            for (int j = 5; j < 26; j++)
+            {
+                if (str[j] != '\n')
+                {
+                    name[j - 5] = str[j];
+                }
+            }
+            monster->name = duplicateString(name);
+        }
+        else if (str[0] == 'h' && str[1] == 'p' && str[2] == 'M' && str[3] == 'a' && str[4] == 'x')
+        {
+            char doubleHpMax[5];
+            for (int i = 0; i < 10; i++)
+            {
+                if (str[i] < '9' && str[i] > '0' || str[i] == '.')
+                {
+                    doubleHpMax[i - 6] = str[i];
+                }
+            }
+            monster->hpMax = atof(doubleHpMax);
+        }
+        else if (str[0] == 's' && str[1] == 'h' && str[2] == 'o' && str[3] == 'o' && str[4] == 't')
+        {
+            monster->shoot = 1;
+        }
+        else if (str[0] == 's' && str[1] == 's' && str[2] == '=')
+        {
+            monster->spectralShot = 1;
+        }
+        else if (str[0] == 'f' && str[1] == 'l' && str[2] == 'i' && str[3] == 'g' && str[4] == 'h' && str[5] == 't')
+        {
+            monster->flight = 1;
+        }
+    }
 }
 
 Monster *importMonsterById(FILE *f, unsigned int id)
@@ -37,44 +77,50 @@ Monster *importMonsterById(FILE *f, unsigned int id)
         printf("L'id du monstre n'existe pas dans le fichier");
         return 0;
     }
-    printf("Number of monster in file : %d\n", numberOfMonsterInFile);
+    // printf("Number of monster in file : %d\n", numberOfMonsterInFile);
 
     Monster *monster = malloc(sizeof(Monster));
+    initializeMonster(monster);
     char str[100];
     if (f != NULL)
     {
-        int bool = 0;
         int counter = 0;
-        do
+        while (counter != id)
         {
             fgets(str, 100, f);
             if (str[0] == '-' && str[1] == '-' && str[2] == '-')
             {
                 counter++;
-                for (int i = 0; i < 4; i++)
-                {
-                    fgets(str, 100, f);
-                    if (str[0] == 'n' && str[1] == 'a' && str[2] == 'm' && str[3] == 'e' && str[4] == '=')
-                    {
-                        for (int j = 0; j < 100; j++)
-                        {
-                        }
-                        // monster->name = duplicateString(name);
-                    }
-                }
             }
-            if (counter == id)
+        }
+        if (id < numberOfMonsterInFile)
+        {
+            do
             {
-                bool = 1;
+                getMonsterInformation(f, str, monster);
+            } while (!(str[0] == '-' && str[1] == '-' && str[2] == '-'));
+        }
+        else if (id == numberOfMonsterInFile)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                getMonsterInformation(f, str, monster);
             }
-        } while (bool == 0);
+        }
+        return monster;
     }
     else
     {
         printf("Erreur le fichier n'est pas ouvert !\n");
     }
+}
 
-    return monster;
+void initializeMonster(Monster *monster)
+{
+    monster->hpMax = 0;
+    monster->shoot = 0;
+    monster->spectralShot = 0;
+    monster->flight = 0;
 }
 
 unsigned int getNumberOfMonsterInFile(FILE *f)
@@ -95,10 +141,10 @@ void printMonster(Monster *monster)
 {
     printf("MONSTER INFORMATIONS :\n");
     printf("name : %s\n", monster->name);
-    printf("hpMax : %d\n", monster->hpMax);
-    printf("shoot : %d\n", monster->shoot);
-    printf("spectral shoot : %d\n", monster->spectralShot);
-    printf("flight : %d\n", monster->flight);
+    printf("hpMax : %.2f\n", monster->hpMax);
+    printf("shoot : %u\n", monster->shoot);
+    printf("spectral shoot : %u\n", monster->spectralShot);
+    printf("flight : %u\n", monster->flight);
 }
 
 void freeMonster(Monster *monster)

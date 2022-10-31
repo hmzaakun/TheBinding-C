@@ -7,9 +7,9 @@
 struct Object
 {
     char *name;
-    unsigned int hpMax;
+    double hpMax;
     unsigned int shield;
-    unsigned int damage;
+    double damage;
     unsigned int spectralShoot; // TRUE OR FALSE
     unsigned int percingShoot;  // TRUE OR FALSE
     unsigned int flight;        // TRUE OR FALSE
@@ -19,6 +19,8 @@ typedef struct Object Object;
 Object *importObjectByName(FILE *f, char name[]);
 Object *importObjectById(FILE *f, unsigned int id);
 Object *importRandomObject(FILE *f);
+void initializeObject(Object *object);
+void getObjectInformation(FILE *f, char str[], Object *object);
 unsigned int getNumberOfObjectInFile(FILE *f);
 void printObject(Object *object);
 void freeObject(Object *object);
