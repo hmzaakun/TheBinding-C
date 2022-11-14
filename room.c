@@ -15,14 +15,96 @@ int ** importRandomRoomFromFile(FILE * f) {
   srand(time(NULL));
   unsigned int randomRoomId = rand() % nbrOfRoom + 1;
   return importRoomFromFile(f, randomRoomId);
+  
 }
+
+void showRoomId(FILE * f,int index)
+{
+char chaine[100]; 
+int rowStart = 1+10*(index-1) ;
+int rowEnd = rowStart + 8;
+int row = 0;
+int newCount = 0;
+int i;
+	if (f != NULL) {
+		fseek(f, 0, SEEK_SET);
+		fgets(chaine, 100, f);
+		fgets(chaine, 100, f);
+		
+		
+		
+		while (fgets(chaine, 100, f) != NULL) {
+		++row;
+		if(row >= rowStart &&  row <= rowEnd){
+		printf("%d:%s",newCount++, chaine);
+		}
+		}
+	
+	fseek(f, 0, SEEK_SET);
+	}else {
+	printf("Erreur lors de l'ouverture du fichier");
+
+	}
+}
+void UpdateRoom(FILE * f, unsigned int index)
+
+{
+
+showRoomId(f,index);
+
+  FILE * temp = NULL;
+
+  temp = fopen("tempModif.txt", "w+");
+  char chaine[100] = "";
+  char chaine1[100] = "";
+  int row = 0;
+  int startDel = 1 + (index - 1) * 10;
+  int endDel = startDel + 9;
+  int numberOfMap = getNumberOfMapInFile(f);
+
+  if (numberOfMap == 0 || index > numberOfMap)
+  // penser a enlever le if pcq on va fair un menu donc on pourra faire un do while numberOfMap == 0 || index > numberOfMap
+  {
+    printf("L'index de la map a supprimer n'existe pas dans le fichier");
+    return;
+  }
+
+  if (f != NULL) {
+    fseek(f, 0, SEEK_SET);
+
+    while (fgets(chaine, 100, f) != NULL) {
+
+     
+    }
+  } else {
+    printf("Erreur lors de l'ouverture du fichier");
+
+  }
+
+  fclose(f);
+  f = fopen("maps.rtbob", "w+");
+  fseek(temp, 0, SEEK_SET);
+  while (fgets(chaine1, 100, temp) != NULL) {
+    fputs(chaine1, f);
+
+  }
+
+  fclose(temp);
+
+  return;
+}
+
+
+
+
+
 
 void deleteRoom(FILE * f, unsigned int index)
 
 {
   FILE * temp = NULL;
 
-  temp = fopen("temp.txt", "w+");
+  temp = fopen("tempDelete.txt", "w+");
   char chaine[100] = "";
   char chaine1[100] = "";
   int row = 0;
@@ -50,6 +132,7 @@ void deleteRoom(FILE * f, unsigned int index)
 
       } else {
         if (row == 1) {
+       // printf("%d",row);
           chaine[1]--;
         }
         if (row % 10 == 2 && row > (endDel + 1)) {

@@ -16,9 +16,17 @@ int main(int argc, char *argv[])
     // printMonster(monster);
     // freeMonster(monster);
 
-    FILE *objects = fopen("objects.itbob", "r");
-    Object *object = importRandomObject(objects);
-    printObject(object);
-    freeObject(object);
+    //FILE *objects = fopen("objects.itbob", "r");
+   // Object *object = importRandomObject(objects);
+    //printObject(object);
+    //freeObject(object);
+    FILE *maps = fopen("maps.rtbob", "r");
+    int choixmap = 1;
+    showRoomId(maps,choixmap);
+ 	
+ 
+     
+    
+    
     return 0;
 }
