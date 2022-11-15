@@ -3,7 +3,7 @@
 
 #ifndef ROOM
 #define ROOM
-
+void addRoom(FILE *f);
 void deleteRoom(FILE *f, unsigned int index); // EN DEVELOPEMENT
 void showRoomId(FILE *f,int index); // EN DEVELOPEMENT
 int **importRoomFromFile(FILE *f, unsigned int index);

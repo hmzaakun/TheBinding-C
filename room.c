@@ -18,6 +18,62 @@ int ** importRandomRoomFromFile(FILE * f) {
   
 }
 
+
+void addRoom(FILE *f){
+char chaine[100]="";
+FILE *temp = fopen("tempAdd.txt", "w");
+int index = 0;
+int row=0;
+int i; 
+if (f != NULL) {
+		
+		while (fgets(chaine, 100, f) != NULL) {
+		++row;
+		if(row==1){
+		index=chaine[1]++;
+		}
+		fputs(chaine,temp);
+		}
+		fclose(f);
+	fclose(temp);
+	FILE *temp = fopen("tempAdd.txt", "a");
+	char base[8] ="[9|15]1";
+	row = 0;
+	base[6]=index+1;
+	
+	fputs(base,temp);
+	fputs("\nWWWWWWWDWWWWWWW\n",temp);
+	for(i=0;i<7;i++){
+		row++;
+		if(row/2==(9/2)){
+		fputs("D             D\n",temp);
+		}else{
+		fputs("W             W\n",temp);
+		}
+		}
+		fputs("WWWWWWWDWWWWWWW",temp);
+	fclose(temp);
+	
+	temp = fopen("tempAdd.txt", "r+");
+	 f = fopen("maps.rtbob", "w");
+	
+		while (fgets(chaine, 100, temp) != NULL) {
+		fputs(chaine,f);
+		}
+		
+		fclose(temp);
+		fclose(f);
+	
+	
+	
+	
+	
+	}else {
+	printf("Erreur lors de l'ouverture du fichier");
+
+	}
+}
+
 void showRoomId(FILE * f,int index)
 {
 char chaine[100]; 

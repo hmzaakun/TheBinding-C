@@ -21,8 +21,10 @@ int main(int argc, char *argv[])
     //printObject(object);
     //freeObject(object);
     FILE *maps = fopen("maps.rtbob", "r");
-    int choixmap = 1;
-    showRoomId(maps,choixmap);
+    int choixmap = 2;
+  //showRoomId(maps,choixmap);
+  //importRoomFromFile(maps,choixmap);
+ addRoom(maps);
  	
  
      

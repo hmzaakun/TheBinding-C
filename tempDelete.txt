@@ -1,0 +1,22 @@
+{2}
+WWWWWWWDWWWWWWW
+[9|15]1
+WWWWWWWDWWWWWWW
+WHG         G W
+WGG         GGW
+W             W
+D   GGG       D
+W   RR        W
+WGG         GGW
+W G         GHW
+WWWWWWWDWWWWWWW
+[9|15]2
+WWWWWWWDWWWWWWW
+WHG         G W
+WGG         GGW
+W             W
+D   RR        D
+W   GG        W
+WGG         GGW
+W G         GHW
+WWWWWWWDWWWWWWW
