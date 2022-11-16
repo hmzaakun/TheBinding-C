@@ -4,10 +4,201 @@
 
 Object *importObjectByName(FILE *f, char name[])
 {
-    Object *object = malloc(sizeof(Object));
-    object->name = duplicateString(name);
-    initializeObject(object);
-    return object;
+    // Object *object = malloc(sizeof(Object));
+    // object->name = duplicateString(name);
+    // initializeObject(object);
+    // return object;
+}
+
+void modifyObjectById(FILE *f, unsigned int id)
+{
+    removeObjectById(f, id);
+    addObject();
+}
+
+void addObject()
+{
+    FILE *temp = NULL;
+    temp = fopen("temp.itbob", "w+");
+
+    /*Ajoute les informations à la fin du fichier reste le nbr de monstre à modifier*/
+    FILE *objectsFile = fopen("objects.itbob", "a");
+    addObjectToFile(objectsFile);
+    fclose(objectsFile);
+
+    FILE *f = fopen("objects.itbob", "r");
+    int numberOfObjectInFile = getNumberOfObjectInFile(f);
+    if (f != NULL)
+    {
+        char str[100];
+        int counter = 1;
+        sprintf(str, "%d", numberOfObjectInFile + 1); // Convertir nbr to string
+        fputc('{', temp);
+        fputs(str, temp);
+        fputc('}', temp);
+        fputc('\n', temp);
+        fgets(str, 100, f); // récupère la première ligne inutile désormais
+        while (counter != numberOfObjectInFile + 1)
+        {
+            fgets(str, 100, f);
+            fputs(str, temp);
+            if (str[0] == '-' && str[1] == '-' && str[2] == '-')
+            {
+                counter++;
+            }
+        }
+        char ligneAvant[100];
+        int isSameLine = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            fgets(str, 100, f);
+            fputs(str, temp);
+        }
+        fclose(f);
+        fclose(temp);
+        remove("objects.itbob");
+        rename("temp.itbob", "objects.itbob");
+    }
+}
+
+void addObjectToFile(FILE *f)
+{
+    if (f != NULL)
+    {
+        char toWrite[100];
+        fputs("---\n", f);
+
+        printf("Nom de l'object :\n");
+        fputs("name=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+
+        printf("hpMax (float ex:5.5) :\n");
+        fputs("hpMax=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+
+        printf("Shield:\n");
+        fputs("shield=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+
+        printf("Damage :\n");
+        fputs("dmg=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+
+        printf("Spectral Shoot (true ou false) :\n");
+        fputs("ss=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+
+        printf("Percing Shoot (true ou false) :\n");
+        fputs("ps=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+
+        printf("Flight (true ou false):\n");
+        fputs("flight=", f);
+        fputs(gets(toWrite), f);
+        fputc('\n', f);
+    }
+    else
+    {
+        printf("impossible de lire le fichier");
+    }
+}
+
+void removeObjectById(FILE *f, unsigned int id)
+{
+    int numberOfObjectInFile = getNumberOfObjectInFile(f);
+    if (numberOfObjectInFile == 0)
+    {
+        printf("Pas d'objet dans le fichier, impossible de delete un objet\n");
+        return;
+    }
+    if (id > numberOfObjectInFile)
+    {
+        printf("L'id de l'objet n'existe pas dans le fichier");
+        return;
+    }
+
+    FILE *temp = NULL;
+    temp = fopen("temp.itbob", "w+");
+
+    if (f != NULL)
+    {
+        char str[100];
+        int counter = 1;
+        sprintf(str, "%d", numberOfObjectInFile - 1); // Convertir nbr to string
+        fputc('{', temp);
+        fputs(str, temp);
+        fputc('}', temp);
+        fputc('\n', temp);
+        fgets(str, 100, f); // récupère la première ligne inutile
+        while (counter != id)
+        {
+            fgets(str, 100, f);
+            if (str[0] == '-' && str[1] == '-' && str[2] == '-')
+            {
+                counter++;
+            }
+            if (counter != id)
+            {
+                fputs(str, temp);
+            }
+        }
+        if (id < numberOfObjectInFile)
+        {
+            int bool = 0;
+            fgets(str, 100, f);
+            while (bool != 1)
+            {
+                fgets(str, 100, f);
+                if (str[0] == '-' && str[1] == '-' && str[2] == '-')
+                {
+                    fputs(str, temp);
+                    bool = 1;
+                }
+            }
+            while (counter != numberOfObjectInFile - 1)
+            {
+                fgets(str, 100, f);
+                fputs(str, temp);
+                if (str[0] == '-' && str[1] == '-' && str[2] == '-')
+                {
+                    counter++;
+                }
+            }
+            char ligneAvant[100];
+            int isSameLine = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                fgets(str, 100, f);
+                if (ligneAvant[0] == str[0] && ligneAvant[1] == str[1] && ligneAvant[2] == str[2] && ligneAvant[3] == str[3])
+                {
+                    fclose(f);
+                    fclose(temp);
+                    remove("objects.itbob");
+                    rename("temp.itbob", "objects.itbob");
+                    return;
+                }
+                fputs(str, temp);
+                for (int i = 0; i < 100; i++)
+                {
+                    ligneAvant[i] = str[i];
+                }
+            }
+        }
+        fclose(f);
+        fclose(temp);
+        remove("objects.itbob");
+        rename("temp.itbob", "objects.itbob");
+    }
+    else
+    {
+        printf("erreur de lecture\n");
+    }
 }
 
 Object *importRandomObject(FILE *f)
@@ -147,6 +338,15 @@ void initializeObject(Object *object)
     object->percingShoot = 0;
     object->spectralShoot = 0;
     object->flight = 0;
+}
+
+void printAllObjects(FILE *f)
+{
+    for (unsigned int i = 1; i <= getNumberOfObjectInFile(f); i++)
+    {
+        Object *object = importObjectById(f, i);
+        printObject(object);
+    }
 }
 
 unsigned int getNumberOfObjectInFile(FILE *f)

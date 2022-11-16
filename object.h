@@ -16,13 +16,23 @@ struct Object
 };
 typedef struct Object Object;
 
-Object *importObjectByName(FILE *f, char name[]);
+/*Fonctions d'import*/
+Object *importObjectByName(FILE *f, char name[]); // PAS DEV
 Object *importObjectById(FILE *f, unsigned int id);
 Object *importRandomObject(FILE *f);
-void initializeObject(Object *object);
-void getObjectInformation(FILE *f, char str[], Object *object);
 unsigned int getNumberOfObjectInFile(FILE *f);
+
+/*Fonctions d'aide à ne pas utiliser dans le main*/
+void getObjectInformation(FILE *f, char str[], Object *object);
+void initializeObject(Object *object);
+void addObjectToFile(FILE *f); // Ajoute les infos à la fin du fichiers mais reste le nbr de monstre à modifier
+
+/*Fonctions utilitaires*/
 void printObject(Object *object);
+void printAllObjects(FILE *f);
+void modifyObjectById(FILE *f, unsigned int id);
+void addObject(); // Ajoute le monstre voulu à la fin du fichier, le fichier ne doit pas être préalablement ouvert
 void freeObject(Object *object);
+void removeObjectById(FILE *f, unsigned int id);
 
 #endif
