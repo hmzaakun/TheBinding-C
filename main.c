@@ -5,6 +5,7 @@
 #include "object.h"
 #include "stage.h"
 
+
 int main(int argc, char *argv[])
 {
     // FILE *maps = fopen("maps.rtbob", "r");
@@ -44,13 +45,12 @@ int main(int argc, char *argv[])
    // Object *object = importRandomObject(objects);
     //printObject(object);
     //freeObject(object);
-    FILE *maps = fopen("maps.rtbob", "r");
-    int choixmap = 2;
-  //showRoomId(maps,choixmap);
-  //importRoomFromFile(maps,choixmap);
-
+    
+  
+ addRoom();
+  
  
- 	
+ 
  
      
     

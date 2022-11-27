@@ -10,38 +10,41 @@
 
 #include <time.h>
 
-int ** importRandomRoomFromFile(FILE * f) {
+int ** importRandomRoomFromFile() {
+    FILE *f = fopen("maps.rtbob", "r");
   unsigned int nbrOfRoom = getNumberOfMapInFile(f);
   srand(time(NULL));
   unsigned int randomRoomId = rand() % nbrOfRoom + 1;
-  return importRoomFromFile(f, randomRoomId);
+
+  return importRoomFromFile(randomRoomId);
   
 }
 
 
-void addRoom(FILE *f){
+void addRoom(){
+    FILE *f = fopen("maps.rtbob", "r");
 char chaine[100]="";
 FILE *temp = fopen("tempAdd.txt", "w");
-int index = 0;
 int row=0;
-int i; 
+int i;
 if (f != NULL) {
 		
 		while (fgets(chaine, 100, f) != NULL) {
 		++row;
 		if(row==1){
-		index=chaine[1]++;
-		}
+		fprintf(temp, "{%d}",getNumberOfMapInFile()+1);
+		fputs("\n",temp);
+		}else{
 		fputs(chaine,temp);
 		}
-		fclose(f);
+		}
+	fclose(f);
 	fclose(temp);
 	FILE *temp = fopen("tempAdd.txt", "a");
-	char base[8] ="[9|15]1";
-	row = 0;
-	base[6]=index+1;
 	
-	fputs(base,temp);
+	row = 0;
+	
+	fprintf(temp, "[9|15]%d",getNumberOfMapInFile()+1);
 	fputs("\nWWWWWWWDWWWWWWW\n",temp);
 	for(i=0;i<7;i++){
 		row++;
@@ -51,7 +54,7 @@ if (f != NULL) {
 		fputs("W             W\n",temp);
 		}
 		}
-		fputs("WWWWWWWDWWWWWWW",temp);
+		fputs("WWWWWWWDWWWWWWW\n",temp);
 	fclose(temp);
 	
 	temp = fopen("tempAdd.txt", "r+");
@@ -68,14 +71,21 @@ if (f != NULL) {
 	
 	
 	
-	}else {
+	} else {
 	printf("Erreur lors de l'ouverture du fichier");
 
 	}
 }
 
-void showRoomId(FILE * f,int index)
+void showRoomId()
 {
+unsigned int index;
+do{
+printf("index?\n");
+scanf("%d",&index);
+}while(index <= 1 || index >= getNumberOfMapInFile(f));
+
+FILE *f = fopen("maps.rtbob", "r");
 char chaine[100]; 
 int rowStart = 1+10*(index-1) ;
 int rowEnd = rowStart + 8;
@@ -102,14 +112,8 @@ int i;
 
 	}
 }
-void UpdateRoom(FILE * f, unsigned int index)
-
-{
-
-showRoomId(f,index);
-
-  FILE * temp = NULL;
-
+void updateRoom()
+FILE * temp = NULL;
   temp = fopen("tempModif.txt", "w+");
   char chaine[100] = "";
   char chaine1[100] = "";
@@ -117,35 +121,103 @@ showRoomId(f,index);
   int startDel = 1 + (index - 1) * 10;
   int endDel = startDel + 9;
   int numberOfMap = getNumberOfMapInFile(f);
+  int ligne;
+   int col;
+    char mat;
+    int dowhile=0;
+unsigned int index;
 
-  if (numberOfMap == 0 || index > numberOfMap)
+
+{
+do{
+printf("index?\n");
+scanf("%d",&index);
+}while(index <= 1 || index >= getNumberOfMapInFile(f));
+
+
+
+FILE *f = fopen("maps.rtbob", "r");
+
+showRoomId();
+
+  
+   
+
+  if (numberOfMap == 0 ||  > numberOfMap)
   // penser a enlever le if pcq on va fair un menu donc on pourra faire un do while numberOfMap == 0 || index > numberOfMap
   {
     printf("L'index de la map a supprimer n'existe pas dans le fichier");
     return;
   }
+  
+  
+  do{
+ 
+  if(dowhile){
+  printf("Réessaye avec un chiffre entre 1 et 7");
+  }else{printf("Ligne?\n");
+  }
+  
+ 
+  scanf("%d",&ligne);
+   dowhile++;
+  }while(ligne < 1 || ligne >7);
+  dowhile=0;
+    do{
+    if(dowhile)
+    {printf("Réessaye avec un nombre entre 1 et 13");
+    }else{
+  printf("Colonne?\n");
+  }
+  scanf("%d",&col);
+  dowhile++;
+  }while(col < 1 || col > 13);
+  dowhile=0;
+ do{
+  if(dowhile)
+    {printf("Réessaye avec un charactere R G H S");
+    }else{
+  printf("Quelle matériel\n");
+  }
+  scanf(" %c",&mat);
+   dowhile++;
+  }while(mat != 'R' && mat != 'G' && mat != 'H' && mat != 'S');
+
+
+
+  
+  
 
   if (f != NULL) {
     fseek(f, 0, SEEK_SET);
 
     while (fgets(chaine, 100, f) != NULL) {
-
+fputs(chaine,temp);
      
     }
   } else {
     printf("Erreur lors de l'ouverture du fichier");
 
   }
+  
 
   fclose(f);
   f = fopen("maps.rtbob", "w+");
   fseek(temp, 0, SEEK_SET);
+  
   while (fgets(chaine1, 100, temp) != NULL) {
+  row++;
+  if(((startDel+2)+ligne)==row)
+  {
+	chaine1[col]=mat;
+  }
     fputs(chaine1, f);
+    
 
   }
 
   fclose(temp);
+  fclose(f);
 
   return;
 }
@@ -155,9 +227,17 @@ showRoomId(f,index);
 
 
 
-void deleteRoom(FILE * f, unsigned int index)
+void deleteRoom()
 
 {
+int unsigned index;
+do{
+printf("index?\n");
+scanf("%d",&index);
+}while(index <= 1 || index >= getNumberOfMapInFile(f));
+
+
+FILE *f = fopen("maps.rtbob", "r");
   FILE * temp = NULL;
 
   temp = fopen("tempDelete.txt", "w+");
@@ -168,6 +248,12 @@ void deleteRoom(FILE * f, unsigned int index)
   int startDel = 1 + (index - 1) * 10;
   int endDel = startDel + 9;
   int numberOfMap = getNumberOfMapInFile(f);
+  unsigned int index
+  
+  do{
+printf("index?\n");
+scanf("%d",&index);
+}while(index <= 1 || index >= getNumberOfMapInFile(f));
 
   if (numberOfMap == 0 || index > numberOfMap)
   // penser a enlever le if pcq on va fair un menu donc on pourra faire un do while numberOfMap == 0 || index > numberOfMap
@@ -188,10 +274,9 @@ void deleteRoom(FILE * f, unsigned int index)
 
       } else {
         if (row == 1) {
-       // printf("%d",row);
-          chaine[1]--;
-        }
-        if (row % 10 == 2 && row > (endDel + 1)) {
+       fprintf(temp, "{%d}",getNumberOfMapInFile()-1);
+		fputs("\n", temp);	
+        }else if (row % 10 == 2 && row > (endDel + 1)) {
           chaine[6]--;
 
           fputs(chaine, temp);
@@ -219,24 +304,34 @@ void deleteRoom(FILE * f, unsigned int index)
   return;
 }
 
-unsigned int getRowsInSelectedRoom(FILE * f, unsigned int index) {
+unsigned int getRowsInSelectedRoom() {
+
+unsigned int index;
+do{
+printf("index?\n");
+scanf("%d",&index);
+}while(index <= 1 || index >= getNumberOfMapInFile(f));
+
+FILE *f = fopen("maps.rtbob", "r");
   if (f != NULL) {
     char str[100];
     unsigned int rows = 0;
     unsigned int columns = 0;
-    getRoomInformations(f, str, & rows, & columns, index);
+    getRoomInformations(str, & rows, & columns, index);
     return rows;
   } else {
     printf("Erreur lors de l'ouverture du fichier");
     return 0;
   }
 }
-unsigned int getColumnsInSelectedRoom(FILE * f, unsigned int index) {
+unsigned int getColumnsInSelectedRoom(unsigned int index) {
+unsigned int index;
+FILE *f = fopen("maps.rtbob", "r");
   if (f != NULL) {
     char str[100];
     unsigned int rows = 0;
     unsigned int columns = 0;
-    getRoomInformations(f, str, & rows, & columns, index);
+    getRoomInformations(str, & rows, & columns, index);
     return columns;
   } else {
     printf("Erreur lors de l'ouverture du fichier");
@@ -244,7 +339,16 @@ unsigned int getColumnsInSelectedRoom(FILE * f, unsigned int index) {
   }
 }
 
-void getRoomInformations(FILE * f, char str[], unsigned int * rows, unsigned int * columns, unsigned int index) {
+void getRoomInformations(char str[], unsigned int * rows, unsigned int * columns) {
+
+unsigned int index;
+do{
+printf("index?\n");
+scanf("%d",&index);
+}while(index <= 1 || index >= getNumberOfMapInFile(f));
+
+
+FILE *f = fopen("maps.rtbob", "r");
   if (f != NULL) {
     unsigned int bool = 0;
     fseek(f, 0, SEEK_SET);
@@ -297,7 +401,8 @@ void getRoomInformations(FILE * f, char str[], unsigned int * rows, unsigned int
   }
 }
 
-int ** importRoomFromFile(FILE * f, unsigned int index) {
+int ** importRoomFromFile( unsigned int index) {
+FILE *f = fopen("maps.rtbob", "r");
   int numberOfMap = getNumberOfMapInFile(f);
   if (numberOfMap == 0) {
     printf("Impossible d'importer une ROOM\n");
@@ -313,7 +418,7 @@ int ** importRoomFromFile(FILE * f, unsigned int index) {
     unsigned int rows = 0;
     unsigned int columns = 0;
     printf("Room recherche : %d\n", index);
-    getRoomInformations(f, str, & rows, & columns, index);
+    getRoomInformations(str, & rows, & columns, index);
     // INFORMATIONS ON SELECTED ROOM
     // printf("%s", str);
     printf("rows : %d\n", rows);
@@ -350,7 +455,8 @@ int ** importRoomFromFile(FILE * f, unsigned int index) {
   }
 }
 
-unsigned int getNumberOfMapInFile(FILE * f) {
+unsigned int getNumberOfMapInFile() {
+FILE *f = fopen("maps.rtbob", "r");
   unsigned int numberOfMap = 0;
   if (f != NULL) {
     fseek(f, 0, SEEK_SET);

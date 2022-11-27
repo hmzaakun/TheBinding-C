@@ -1,6 +1,17 @@
 #include "stage.h"
 #include "room.h"
 #include <time.h>
+#include<stdlib.h>
+
+void delay(unsigned milliseconds)
+{
+    clock_t pause;
+    clock_t start;
+
+    pause = milliseconds * (CLOCKS_PER_SEC / 1000);
+    start = clock();
+    while( (clock() - start) < pause );
+}
 
 void initializeStage(Stage *stage, FILE *f)
 {
@@ -28,3 +39,4 @@ void freeStage(Stage *stage)
     }
     free(stage);
 }
+

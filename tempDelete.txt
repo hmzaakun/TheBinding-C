@@ -1,22 +1,31 @@
-{2}
-WWWWWWWDWWWWWWW
+{3}
 [9|15]1
 WWWWWWWDWWWWWWW
-WHG         G W
-WGG         GGW
-W             W
-D   GGG       D
-W   RR        W
+WRG         G W
+WOG         GGW
+W O SOR R S   W
+DOO  O        D
+W   S R R S   W
 WGG         GGW
 W G         GHW
 WWWWWWWDWWWWWWW
 [9|15]2
 WWWWWWWDWWWWWWW
-WHG         G W
-WGG         GGW
 W             W
-D   RR        D
-W   GG        W
-WGG         GGW
-W G         GHW
+W             W
+W             W
+W             W
+W             W
+W             W
+W             W
+WWWWWWWDWWWWWWW
+[9|15]3
+WWWWWWWDWWWWWWW
+W             W
+W             W
+W             W
+W             W
+W             W
+W             W
+W             W
 WWWWWWWDWWWWWWW
