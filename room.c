@@ -12,7 +12,7 @@
 
 int ** importRandomRoomFromFile() {
     FILE *f = fopen("maps.rtbob", "r");
-  unsigned int nbrOfRoom = getNumberOfMapInFile(f);
+  unsigned int nbrOfRoom = getNumberOfMapInFile();
   srand(time(NULL));
   unsigned int randomRoomId = rand() % nbrOfRoom + 1;
 
@@ -83,7 +83,7 @@ unsigned int index;
 do{
 printf("index?\n");
 scanf("%d",&index);
-}while(index <= 1 || index >= getNumberOfMapInFile(f));
+}while(index <= 1 || index >= getNumberOfMapInFile());
 
 FILE *f = fopen("maps.rtbob", "r");
 char chaine[100]; 
@@ -112,15 +112,15 @@ int i;
 
 	}
 }
-void updateRoom()
+void updateRoom(){
 FILE * temp = NULL;
   temp = fopen("tempModif.txt", "w+");
   char chaine[100] = "";
   char chaine1[100] = "";
   int row = 0;
-  int startDel = 1 + (index - 1) * 10;
-  int endDel = startDel + 9;
-  int numberOfMap = getNumberOfMapInFile(f);
+  
+ 
+  int numberOfMap = getNumberOfMapInFile();
   int ligne;
    int col;
     char mat;
@@ -128,13 +128,14 @@ FILE * temp = NULL;
 unsigned int index;
 
 
-{
+
 do{
 printf("index?\n");
 scanf("%d",&index);
-}while(index <= 1 || index >= getNumberOfMapInFile(f));
+}while(index <= 1 || index >= getNumberOfMapInFile());
 
-
+int startDel = 1 + (index - 1) * 10;
+ int endDel = startDel + 9;
 
 FILE *f = fopen("maps.rtbob", "r");
 
@@ -142,13 +143,6 @@ showRoomId();
 
   
    
-
-  if (numberOfMap == 0 ||  > numberOfMap)
-  // penser a enlever le if pcq on va fair un menu donc on pourra faire un do while numberOfMap == 0 || index > numberOfMap
-  {
-    printf("L'index de la map a supprimer n'existe pas dans le fichier");
-    return;
-  }
   
   
   do{
@@ -234,7 +228,7 @@ int unsigned index;
 do{
 printf("index?\n");
 scanf("%d",&index);
-}while(index <= 1 || index >= getNumberOfMapInFile(f));
+}while(index <= 1 || index >= getNumberOfMapInFile());
 
 
 FILE *f = fopen("maps.rtbob", "r");
@@ -247,13 +241,13 @@ FILE *f = fopen("maps.rtbob", "r");
 
   int startDel = 1 + (index - 1) * 10;
   int endDel = startDel + 9;
-  int numberOfMap = getNumberOfMapInFile(f);
-  unsigned int index
+  int numberOfMap = getNumberOfMapInFile();
+ 
   
-  do{
+ do{
 printf("index?\n");
 scanf("%d",&index);
-}while(index <= 1 || index >= getNumberOfMapInFile(f));
+}while(index <= 1 || index >= getNumberOfMapInFile());
 
   if (numberOfMap == 0 || index > numberOfMap)
   // penser a enlever le if pcq on va fair un menu donc on pourra faire un do while numberOfMap == 0 || index > numberOfMap
@@ -310,28 +304,28 @@ unsigned int index;
 do{
 printf("index?\n");
 scanf("%d",&index);
-}while(index <= 1 || index >= getNumberOfMapInFile(f));
+}while(index <= 1 || index >= getNumberOfMapInFile());
 
 FILE *f = fopen("maps.rtbob", "r");
   if (f != NULL) {
     char str[100];
     unsigned int rows = 0;
     unsigned int columns = 0;
-    getRoomInformations(str, & rows, & columns, index);
+    getRoomInformations(str, & rows, & columns);
     return rows;
   } else {
     printf("Erreur lors de l'ouverture du fichier");
     return 0;
   }
 }
-unsigned int getColumnsInSelectedRoom(unsigned int index) {
+unsigned int getColumnsInSelectedRoom() {
 unsigned int index;
 FILE *f = fopen("maps.rtbob", "r");
   if (f != NULL) {
     char str[100];
     unsigned int rows = 0;
     unsigned int columns = 0;
-    getRoomInformations(str, & rows, & columns, index);
+    getRoomInformations(str, & rows, & columns);
     return columns;
   } else {
     printf("Erreur lors de l'ouverture du fichier");
@@ -345,7 +339,7 @@ unsigned int index;
 do{
 printf("index?\n");
 scanf("%d",&index);
-}while(index <= 1 || index >= getNumberOfMapInFile(f));
+}while(index <= 1 || index >= getNumberOfMapInFile());
 
 
 FILE *f = fopen("maps.rtbob", "r");
@@ -401,9 +395,11 @@ FILE *f = fopen("maps.rtbob", "r");
   }
 }
 
-int ** importRoomFromFile( unsigned int index) {
+int ** importRoomFromFile() {
+unsigned int index;
+
 FILE *f = fopen("maps.rtbob", "r");
-  int numberOfMap = getNumberOfMapInFile(f);
+  int numberOfMap = getNumberOfMapInFile();
   if (numberOfMap == 0) {
     printf("Impossible d'importer une ROOM\n");
     return 0;
@@ -418,7 +414,7 @@ FILE *f = fopen("maps.rtbob", "r");
     unsigned int rows = 0;
     unsigned int columns = 0;
     printf("Room recherche : %d\n", index);
-    getRoomInformations(str, & rows, & columns, index);
+    getRoomInformations(str, & rows, & columns);
     // INFORMATIONS ON SELECTED ROOM
     // printf("%s", str);
     printf("rows : %d\n", rows);

@@ -4,15 +4,15 @@
 #ifndef ROOM
 #define ROOM
 void addRoom();
-void deleteRoom(unsigned int index); // EN DEVELOPEMENT
-void showRoomId(int index); // EN DEVELOPEMENT
+void deleteRoom(); // EN DEVELOPEMENT
+void showRoomId(); // EN DEVELOPEMENT
 void updateRoom();
-int **importRoomFromFile(unsigned int index);
+int **importRoomFromFile();
 int **importRandomRoomFromFile();
-void getRoomInformations(char str[], unsigned int *rows, unsigned int *columns, unsigned int index);
+void getRoomInformations(char str[], unsigned int *rows, unsigned int *columns);
 unsigned int getNumberOfMapInFile();
-unsigned int getRowsInSelectedRoom(unsigned int index);
-unsigned int getColumnsInSelectedRoom(unsigned int index);
+unsigned int getRowsInSelectedRoom();
+unsigned int getColumnsInSelectedRoom();
 int **createEmptyRoom(unsigned int rows, unsigned int columns);
 int **createSpawnRoom(unsigned int rows, unsigned int columns);
 void initalizingSpawnRoom(int **arr, unsigned int rows, unsigned int columns);

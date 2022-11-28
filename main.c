@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     //freeObject(object);
     
   
- addRoom();
+ showRoomId();
   
  
  
