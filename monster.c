@@ -6,32 +6,36 @@
 #include <time.h>
 #include <math.h>
 
-Monster *importMonsterByName(FILE *f, char name[])
+Monster *importMonsterByName(char name[])
 {
 }
 
-void printAllMonster(FILE *f)
+void printAllMonster()
 {
-    for (unsigned int i = 1; i <= getNumberOfMonsterInFile(f); i++)
+    FILE *f = fopen("monsters.mtbob", "r");
+    for (unsigned int i = 1; i <= getNumberOfMonsterInFile(); i++)
     {
-        Monster *monster = importMonsterById(f, i);
+        Monster *monster = importMonsterById(i);
         printMonster(monster);
     }
+    fclose(f);
 }
 
-Monster *importRandomMonster(FILE *f)
+Monster *importRandomMonster()
 {
-    unsigned int nbrOfMonster = getNumberOfMonsterInFile(f);
+    unsigned int nbrOfMonster = getNumberOfMonsterInFile();
     srand(time(NULL));
     unsigned int randomMonsterId = rand() % nbrOfMonster + 1;
     // printf("ID du random Monster : %d\n", randomMonsterId);
-    return importMonsterById(f, randomMonsterId);
+    return importMonsterById(randomMonsterId);
 }
 
-void modifyMonsterById(FILE *f, unsigned int id)
+void modifyMonsterById(unsigned int id)
 {
-    removeMonsterById(f, id);
+    FILE *f = fopen("monsters.mtbob", "r");
+    removeMonsterById(id);
     addMonster();
+    fclose(f);
 }
 
 void addMonster()
@@ -39,48 +43,35 @@ void addMonster()
     FILE *temp = NULL;
     temp = fopen("temp.mtbob", "w+");
 
-    /*Ajoute les informations à la fin du fichier reste le nbr de monstre à modifier*/
-    FILE *monsterFile = fopen("monsters.mtbob", "a");
-    addMonsterToFile(monsterFile);
-    fclose(monsterFile);
+    int numberOfMonsterInFile = getNumberOfMonsterInFile();
 
     FILE *f = fopen("monsters.mtbob", "r");
-    int numberOfMonsterInFile = getNumberOfMonsterInFile(f);
     if (f != NULL)
     {
         char str[100];
-        int counter = 1;
+        char ch;
         sprintf(str, "%d", numberOfMonsterInFile + 1); // Convertir nbr to string
         fputc('{', temp);
         fputs(str, temp);
         fputc('}', temp);
         fputc('\n', temp);
         fgets(str, 100, f); // récupère la première ligne inutile désormais
-        while (counter != numberOfMonsterInFile + 1)
-        {
-            fgets(str, 100, f);
-            fputs(str, temp);
-            if (str[0] == '-' && str[1] == '-' && str[2] == '-')
-            {
-                counter++;
-            }
-        }
-        char ligneAvant[100];
-        int isSameLine = 0;
-        for (int i = 0; i < 5; i++)
-        {
-            fgets(str, 100, f);
-            fputs(str, temp);
-        }
+
+        while ((ch = getc(f)) != EOF)
+            putc(ch, temp);
+
         fclose(f);
         fclose(temp);
         remove("monsters.mtbob");
         rename("temp.mtbob", "monsters.mtbob");
+        /*Ajoute les informations à la fin du fichier reste le nbr de monstre à modifier*/
+        addMonsterToFile();
     }
 }
 
-void addMonsterToFile(FILE *f)
+void addMonsterToFile()
 {
+    FILE *f = fopen("monsters.mtbob", "a");
     if (f != NULL)
     {
         char toWrite[100];
@@ -97,28 +88,42 @@ void addMonsterToFile(FILE *f)
         fputc('\n', f);
 
         printf("Shoot (true ou false) :\n");
-        fputs("shoot=", f);
-        fputs(gets(toWrite), f);
-        fputc('\n', f);
-
-        printf("Spectral Shoot (true ou false) :\n");
-        fputs("ss=", f);
-        fputs(gets(toWrite), f);
-        fputc('\n', f);
+        gets(toWrite);
+        if (toWrite[0] == 't' && toWrite[1] == 'r' && toWrite[2] == 'u' && toWrite[3] == 'e')
+        {
+            fputs("shoot=", f);
+            fputs(toWrite, f);
+            fputc('\n', f);
+            printf("Spectral Shoot (true ou false) :\n");
+            gets(toWrite);
+            if (toWrite[0] == 't' && toWrite[1] == 'r' && toWrite[2] == 'u' && toWrite[3] == 'e')
+            {
+                fputs("ss=", f);
+                fputs(toWrite, f);
+                fputc('\n', f);
+            }
+        }
 
         printf("Flight (true ou false) :\n");
-        fputs("flight=", f);
-        fputs(gets(toWrite), f);
+        gets(toWrite);
+        if (toWrite[0] == 't' && toWrite[1] == 'r' && toWrite[2] == 'u' && toWrite[3] == 'e')
+        {
+            fputs("flight=", f);
+            fputs(toWrite, f);
+            fputc('\n', f);
+        }
+        fclose(f);
     }
     else
     {
         printf("impossible de lire le fichier");
+        fclose(f);
     }
 }
 
-void removeMonsterById(FILE *f, unsigned int id)
+void removeMonsterById(unsigned int id)
 {
-    int numberOfMonsterInFile = getNumberOfMonsterInFile(f);
+    int numberOfMonsterInFile = getNumberOfMonsterInFile();
     if (numberOfMonsterInFile == 0)
     {
         printf("Pas de monstre dans le fichier, impossible de delete un monstre\n");
@@ -130,6 +135,7 @@ void removeMonsterById(FILE *f, unsigned int id)
         return;
     }
 
+    FILE *f = fopen("monsters.mtbob", "r");
     FILE *temp = NULL;
     temp = fopen("temp.mtbob", "w+");
 
@@ -205,6 +211,7 @@ void removeMonsterById(FILE *f, unsigned int id)
     else
     {
         printf("erreur de lecture\n");
+        fclose(f);
     }
 }
 
@@ -253,9 +260,10 @@ void getMonsterInformation(FILE *f, char str[], Monster *monster)
     }
 }
 
-Monster *importMonsterById(FILE *f, unsigned int id)
+Monster *importMonsterById(unsigned int id)
 {
-    int numberOfMonsterInFile = getNumberOfMonsterInFile(f);
+    FILE *f = fopen("monsters.mtbob", "r");
+    int numberOfMonsterInFile = getNumberOfMonsterInFile();
     if (numberOfMonsterInFile == 0)
     {
         printf("Pas de monstre dans le fichier, l'import est impossible\n");
@@ -296,11 +304,13 @@ Monster *importMonsterById(FILE *f, unsigned int id)
                 getMonsterInformation(f, str, monster);
             }
         }
+        fclose(f);
         return monster;
     }
     else
     {
         printf("Erreur le fichier n'est pas ouvert !\n");
+        fclose(f);
     }
 }
 
@@ -312,9 +322,48 @@ void initializeMonster(Monster *monster)
     monster->flight = 0;
 }
 
-unsigned int getNumberOfMonsterInFile(FILE *f)
+unsigned int getNumberOfMonsterInFile()
 {
-    return getNumberOfMapInFile(f);
+    FILE *f = fopen("monsters.mtbob", "r");
+    unsigned int numberOfMonster = 0;
+    if (f != NULL)
+    {
+        fseek(f, 0, SEEK_SET);
+        // printf("RECHERCHE NBR DE MAP TOTAL...\n");
+        char str[100];
+        fgets(str, 100, f); // Récupère la première ligne du fichier
+        // printf("%s", str);
+        if (str[0] == '{') // Traitement pour récupérer le nbr de map dans le fichier
+        {
+            int nbrChiffreInNumber = 0; // Pour déterminer le nbr de chiffre dans le fichier
+            for (unsigned int i = 1; i < 100; i++)
+            {
+                if (str[i] == '}')
+                {
+                    nbrChiffreInNumber = i - 1;
+                }
+            }
+            for (unsigned int i = nbrChiffreInNumber; i > 0; i--) // Détermine le nbr de map dans le fichier
+            {
+                numberOfMonster += (str[i] - 48) * pow(10, nbrChiffreInNumber - i);
+            }
+            // printf("Number of ID in file : %d\n", numberOfMap);
+            fclose(f);
+            return numberOfMonster;
+        }
+        else
+        {
+            printf("Erreur le fichier correspondant ne peut pas être lu, vérifier son format");
+            fclose(f);
+            return 0;
+        }
+    }
+    else
+    {
+        printf("Erreur lors de l'ouverture du fichier");
+        fclose(f);
+        return 0;
+    }
 }
 
 char *duplicateString(char *str)

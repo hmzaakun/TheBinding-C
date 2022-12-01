@@ -1,4 +1,4 @@
-{20}
+{19}
 ---
 name=<3
 hpMax=1
@@ -60,12 +60,12 @@ dmg=1
 name=Ouija Board
 ss=true
 ---
-name=Pentagram
-dmg=2
----
-name=Raw Liver
+name=Banana
 hpMax=2
+shield=0
+dmg=0
 ---
-name=Spirit of the Night
-ss=true
-flight=true
+name=Cookies
+hpMax=1
+shield=0
+dmg=0

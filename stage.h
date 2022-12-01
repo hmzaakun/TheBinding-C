@@ -6,12 +6,14 @@
 
 struct Stage
 {
-    int **arrayOfRoom[14]; // LES ROOMS DE L'ETAGE
-    int **stage;           // LA FORME DE L'ETAGE
+    int **stageArea; // LA FORME DE L'ETAGE
+    int **stageAreaReal[9][9];
+    unsigned int rows;
+    unsigned int cols;
 };
 typedef struct Stage Stage;
 
-void initializeStage(Stage *stage, FILE *f);
+void initializeStage(Stage *stage);
 void printStage(Stage *stage);
 void freeStage(Stage *stage);
 

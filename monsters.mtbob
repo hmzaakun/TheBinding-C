@@ -1,4 +1,4 @@
-{6}
+{10}
 ---
 name=Pooter
 hpMax=8
@@ -22,4 +22,20 @@ ss=true
 ---
 name=Vis
 hpMax=15
+shoot=true
+---
+name=etst
+hpMax=10
+---
+name=test
+hpMax=10
+shoot=true
+flight=true
+---
+name=Mouart
+hpMax=34
+shoot=true
+---
+name=Rabato
+hpMax=23
 shoot=true

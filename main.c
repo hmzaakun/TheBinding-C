@@ -5,55 +5,30 @@
 #include "object.h"
 #include "stage.h"
 
-
 int main(int argc, char *argv[])
 {
-    // FILE *maps = fopen("maps.rtbob", "r");
-    // int **arena = importRandomRoomFromFile(maps);
+    // int **arena = importRandomRoomFromFile();
     // printArray2D(arena, 9, 15);
     // freeArray2D(arena, 9);
-    // fclose(maps);
 
-    // FILE *monsters = fopen("monsters.mtbob", "r");
-    // removeMonsterById(monsters, 4);
-    // printAllMonster(monsters);
-    // Monster *monster = importRandomMonster(monsters);
+    // removeMonsterById(1);
+    // printAllMonster();
+    // Monster *monster = importRandomMonster();
     // printMonster(monster);
     // freeMonster(monster);
     // addMonster();
 
-    // FILE *objects = fopen("objects.itbob", "r");
-    // Object *object = importRandomObject(objects);
-    // removeObjectById(objects, 5);
+    // removeObjectById(4);
     // addObject();
-    // addMonster();
-    // printAllObjects(objects);
+    // printAllObjects();
+    // Object *object = importRandomObject();
     // printObject(object);
     // freeObject(object);
 
-    // FILE *maps = fopen("maps.rtbob", "r");
-    // Stage stage;
-    // initializeStage(&stage, maps);
-    // for (int i = 0; i < 14; i++)
-    // {
-    //     printArray2D(stage.arrayOfRoom[i], 9, 15);
-    // }
-    // fclose(maps);
-    // freeStage(&stage);
+    Stage stage;
+    initializeStage(&stage);
+    printArray2D(stage.stageArea, stage.rows, stage.cols);
+    freeStage(&stage);
 
-    //FILE *objects = fopen("objects.itbob", "r");
-   // Object *object = importRandomObject(objects);
-    //printObject(object);
-    //freeObject(object);
-    
-  
- showRoomId();
-  
- 
- 
- 
-     
-    
-    
     return 0;
 }
