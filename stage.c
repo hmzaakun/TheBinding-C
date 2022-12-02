@@ -2,12 +2,33 @@
 #include "room.h"
 #include <time.h>
 
+void play(Stage *stage, Player *player)
+{
+}
+
+void initializeGame(Stage *stage, Player *player)
+{
+    initializeStage(stage);
+    initializePlayer(player);
+    printArray2D(stage->stageArea, stage->rows, stage->cols);
+    printf("\n");
+
+    player->currStageX = stage->spawnX;
+    player->currStageY = stage->spawnY;
+    stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = 'P';
+    printCurrentRoomOfPlayer(stage, player);
+}
+
+void printCurrentRoomOfPlayer(Stage *stage, Player *player)
+{
+    printArray2D(stage->stageAreaReal[player->currStageX][player->currStageY], 9, 15);
+}
+
 void initializeStage(Stage *stage)
 {
     stage->rows = 9;
     stage->cols = 9;
     srand(time(NULL));
-
     stage->stageArea = createEmptyRoom(stage->rows, stage->cols);
     // Les croix sont les emplacements ou il n'y a pas de room
     for (int i = 0; i < stage->rows; i += 1)
@@ -38,6 +59,8 @@ void initializeStage(Stage *stage)
     }
     // printf("SpawnRows : %d SpawnCols : %d\n", spawnRow, spawnCol);
     stage->stageArea[spawnRow][spawnCol] = 'S';
+    stage->spawnX = spawnRow;
+    stage->spawnY = spawnCol;
 
     int finished = 0;
     unsigned int count = 1;
@@ -272,6 +295,20 @@ void initializeStage(Stage *stage)
     }
 }
 
+void initializePlayer(Player *player)
+{
+    player->name = duplicateString("Theo");
+    player->hpMax = 10;
+    player->shield = 1;
+    player->damage = 2;
+    player->spectralShoot = 0;
+    player->percingShoot = 0;
+    player->flight = 0;
+    // Milieu du spawn
+    player->currX = 4;
+    player->currY = 7;
+}
+
 void printAllRoomOfStage(Stage *stage)
 {
     for (int i = 0; i < stage->rows; i += 1)
@@ -283,16 +320,6 @@ void printAllRoomOfStage(Stage *stage)
                 printArray2D(stage->stageAreaReal[i][j], 9, 15);
                 printf("\n");
             }
-        }
-    }
-}
-
-void printStage(Stage *stage)
-{
-    for (int i = 0; i < stage->rows; i += 1)
-    {
-        for (int j = 0; j < stage->cols; j += 1)
-        {
         }
     }
 }
@@ -311,4 +338,14 @@ void freeStage(Stage *stage)
         }
     }
     free(stage);
+}
+
+void freePlayer(Player *player)
+{
+    free(player->name);
+    for (int i = 0; i < 100; i++)
+    {
+        free(player->object[i]);
+    }
+    free(player);
 }

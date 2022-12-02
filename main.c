@@ -26,10 +26,12 @@ int main(int argc, char *argv[])
     // freeObject(object);
 
     Stage stage;
-    initializeStage(&stage);
-    printArray2D(stage.stageArea, stage.rows, stage.cols);
+    Player player;
+    // initializeStage(&stage);
+    initializeGame(&stage, &player);
+    // printArray2D(stage.stageArea, stage.rows, stage.cols);
     // printAllRoomOfStage(&stage);
-    freeStage(&stage);
+    // freeStage(&stage);
 
     return 0;
 }
