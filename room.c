@@ -549,10 +549,10 @@ void initalizingSpawnRoom(int **arr, unsigned int rows, unsigned int columns)
         arr[rows - 1][i] = 'W';
     }
     // Ajout des portes de sorties
-    arr[0][columns / 2] = 'D';
-    arr[rows - 1][columns / 2] = 'D';
-    arr[rows / 2][0] = 'D';
-    arr[rows / 2][columns - 1] = 'D';
+    // arr[0][columns / 2] = 'D';
+    // arr[rows - 1][columns / 2] = 'D';
+    // arr[rows / 2][0] = 'D';
+    // arr[rows / 2][columns - 1] = 'D';
 }
 
 int **createEmptyRoom(unsigned int rows, unsigned int columns) // SIZE 9x15

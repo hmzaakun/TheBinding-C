@@ -211,6 +211,7 @@ void initializeStage(Stage *stage)
             finished = 1;
     }
 
+    /* Remplacement des 'R' par des vrais rooms */
     for (int i = 0; i < stage->rows; i += 1)
     {
         for (int j = 0; j < stage->cols; j += 1)
@@ -218,11 +219,80 @@ void initializeStage(Stage *stage)
             if (stage->stageArea[i][j] == 'R')
             {
                 stage->stageAreaReal[i][j] = importRandomRoomFromFile();
+                delay(1000);
             }
             else if (stage->stageArea[i][j] == 'S')
             {
                 stage->stageAreaReal[i][j] = createSpawnRoom(9, 15);
             }
+        }
+    }
+
+    /* Changement des portes au bon endroit */
+    for (int i = 0; i < stage->rows; i += 1)
+    {
+        for (int j = 0; j < stage->cols; j += 1)
+        {
+            if (stage->stageArea[i][j] != 'X')
+            {
+                if (i + 1 < 9)
+                {
+                    if (stage->stageArea[i + 1][j] != 'X')
+                    {
+                        // printf("case1\n");
+                        stage->stageAreaReal[i][j][8][7] = 'D'; // Porte du bas
+                    }
+                }
+                if (i - 1 >= 0)
+                {
+                    if (stage->stageArea[i - 1][j] != 'X')
+                    {
+                        // printf("case2\n");
+                        stage->stageAreaReal[i][j][0][7] = 'D'; // Porte du haut
+                    }
+                }
+                if (j + 1 < 15)
+                {
+                    if (stage->stageArea[i][j + 1] != 'X')
+                    {
+                        // printf("case3\n");
+                        stage->stageAreaReal[i][j][4][14] = 'D'; // Porte de droite
+                    }
+                }
+                if (j - 1 >= 0)
+                {
+                    if (stage->stageArea[i][j - 1] != 'X')
+                    {
+                        // printf("case4\n");
+                        stage->stageAreaReal[i][j][4][0] = 'D'; // Porte de gauche
+                    }
+                }
+            }
+        }
+    }
+}
+
+void printAllRoomOfStage(Stage *stage)
+{
+    for (int i = 0; i < stage->rows; i += 1)
+    {
+        for (int j = 0; j < stage->cols; j += 1)
+        {
+            if (stage->stageArea[i][j] != 'X')
+            {
+                printArray2D(stage->stageAreaReal[i][j], 9, 15);
+                printf("\n");
+            }
+        }
+    }
+}
+
+void printStage(Stage *stage)
+{
+    for (int i = 0; i < stage->rows; i += 1)
+    {
+        for (int j = 0; j < stage->cols; j += 1)
+        {
         }
     }
 }

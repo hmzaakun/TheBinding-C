@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
     Stage stage;
     initializeStage(&stage);
     printArray2D(stage.stageArea, stage.rows, stage.cols);
+    // printAllRoomOfStage(&stage);
     freeStage(&stage);
 
     return 0;
