@@ -20,7 +20,7 @@ struct Player
     unsigned int spectralShoot; // TRUE OR FALSE
     unsigned int percingShoot;  // TRUE OR FALSE
     unsigned int flight;        // TRUE OR FALSE
-    Object *object[100];
+    // Object object[100];
     unsigned int currX;
     unsigned int currY;
     int currStageX;
@@ -49,5 +49,6 @@ void freeStage(Stage *stage);
 void initializeGame(Stage *stage, Player *player);
 void printCurrentRoomOfPlayer(Stage *stage, Player *player);
 void play(Stage *stage, Player *player);
+void ifDoor(Stage *stage, Player *player);
 
 #endif

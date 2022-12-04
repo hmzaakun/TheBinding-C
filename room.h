@@ -8,7 +8,7 @@ void addRoom();
 void deleteRoom(); // EN DEVELOPEMENT
 void showRoomId(); // EN DEVELOPEMENT
 void updateRoom();
-int **importRoomFromFile(unsigned int index);
+int **importRoomFromFile(unsigned int index, unsigned int maxRoomNumber);
 int **importRandomRoomFromFile();
 void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *columns, unsigned int index);
 unsigned int getNumberOfMapInFile();

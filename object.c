@@ -417,5 +417,5 @@ void printObject(Object *object)
 void freeObject(Object *object)
 {
     free(object->name);
-    free(object);
+    // free(object);
 }

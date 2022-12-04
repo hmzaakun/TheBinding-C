@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     // int **arena = importRandomRoomFromFile();
     // printArray2D(arena, 9, 15);
     // freeArray2D(arena, 9);
+    // getNumberOfMapInFile();
 
     // removeMonsterById(1);
     // printAllMonster();
@@ -28,8 +29,9 @@ int main(int argc, char *argv[])
     Stage stage;
     Player player;
     play(&stage, &player);
+    // initializeStage(&stage);
+    // printArray2D(stage.stageArea, 9, 9);
     freeStage(&stage);
     freePlayer(&player);
-
     return 0;
 }

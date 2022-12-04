@@ -8,9 +8,11 @@
 int **importRandomRoomFromFile()
 {
     unsigned int nbrOfRoom = getNumberOfMapInFile();
+    // printf("number of room : %d\n", nbrOfRoom);
     srand(time(NULL));
     unsigned int randomRoomId = rand() % nbrOfRoom + 1;
-    return importRoomFromFile(randomRoomId);
+    printf("random ID : %d\n", randomRoomId);
+    return importRoomFromFile(randomRoomId, nbrOfRoom);
 }
 
 void addRoom()
@@ -427,15 +429,16 @@ void getRoomInformations(FILE *f, char str[], unsigned int *rows, unsigned int *
     }
 }
 
-int **importRoomFromFile(unsigned int index)
+int **importRoomFromFile(unsigned int index, unsigned int maxRoomNumber)
 {
-    int numberOfMap = getNumberOfMapInFile();
-    if (numberOfMap == 0)
+    // unsigned int nbrOfRoom = getNumberOfMapInFile();
+    // printf("number of map2 : %d\n", nbrOfRoom);
+    if (maxRoomNumber == 0)
     {
         printf("Impossible d'importer une ROOM\n");
         return 0;
     }
-    if (index > numberOfMap)
+    if (index > maxRoomNumber)
     {
         printf("L'index de la map n'existe pas dans le fichier");
         return 0;
@@ -573,8 +576,10 @@ void freeArray2D(int **arr, unsigned int rows)
 {
     for (int i = 0; i < rows; i += 1)
     {
+        // printf("free : %d\n", i);
         free(arr[i]);
     }
+    // printf("free 2\n");
     free(arr);
 }
 

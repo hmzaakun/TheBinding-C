@@ -33,6 +33,42 @@ char getCharTypedByUser()
     }
 }
 
+void ifDoor(Stage *stage, Player *player)
+{
+    // stage->stageAreaReal[i][j][8][7] = 'D';  // Porte du bas
+    // stage->stageAreaReal[i][j][0][7] = 'D';  // Porte du haut
+    // stage->stageAreaReal[i][j][4][14] = 'D'; // Porte de droite
+    // stage->stageAreaReal[i][j][4][0] = 'D';  // Porte de gauche
+    if (player->currY == 7)
+    {
+        if (player->currX == 0) // Porte du haut
+        {
+            player->currStageX -= 1;
+            player->currX = 7;
+        }
+        else // Porte du bas
+        {
+            player->currStageX += 1;
+            player->currX = 1;
+        }
+    }
+    else if (player->currY == 4)
+    {
+        if (player->currX == 0) // Porte de gauche
+        {
+            player->currStageY -= 1;
+            player->currY = 13;
+        }
+        else // Porte de droite
+        {
+            player->currStageY += 1;
+            player->currY = 1;
+        }
+    }
+    stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = 'P';
+    // printCurrentRoomOfPlayer(stage, player);
+}
+
 void play(Stage *stage, Player *player)
 {
     initializeGame(stage, player);
@@ -53,6 +89,11 @@ void play(Stage *stage, Player *player)
                 stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] = 'P';
                 player->currX = player->currX - 1;
             }
+            else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] == 'D')
+            {
+                player->currX = player->currX - 1;
+                ifDoor(stage, player);
+            }
         }
         else if (c == 's')
         {
@@ -61,6 +102,11 @@ void play(Stage *stage, Player *player)
                 stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
                 stage->stageAreaReal[player->currStageX][player->currStageY][player->currX + 1][player->currY] = 'P';
                 player->currX = player->currX + 1;
+            }
+            else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX + 1][player->currY] == 'D')
+            {
+                player->currX = player->currX + 1;
+                ifDoor(stage, player);
             }
         }
         else if (c == 'q')
@@ -71,6 +117,11 @@ void play(Stage *stage, Player *player)
                 stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY - 1] = 'P';
                 player->currY = player->currY - 1;
             }
+            else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY - 1] == 'D')
+            {
+                player->currY = player->currY - 1;
+                ifDoor(stage, player);
+            }
         }
         else if (c == 'd')
         {
@@ -80,7 +131,18 @@ void play(Stage *stage, Player *player)
                 stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY + 1] = 'P';
                 player->currY = player->currY + 1;
             }
+            else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY + 1] == 'D')
+            {
+                player->currY = player->currY + 1;
+                ifDoor(stage, player);
+            }
         }
+        else if (c == 'b')
+        {
+            inGame = 0;
+        }
+        printArray2D(stage->stageArea, stage->rows, stage->cols);
+        printf("\n");
         printCurrentRoomOfPlayer(stage, player);
     }
 }
@@ -129,7 +191,7 @@ void initializeStage(Stage *stage)
         if (spawnRow > 2 && spawnRow < 7)
             flag = 1;
     }
-    my_delay(500);
+    my_delay(800);
     flag = 0;
     while (flag != 1)
     {
@@ -152,14 +214,14 @@ void initializeStage(Stage *stage)
         unsigned int waitChoosingCase = 0;
         while (waitChoosingCase != 1)
         {
-            for (int i = 1; i < stage->rows - 1; i += 1)
+            for (int i = 0; i < stage->rows; i += 1)
             {
-                for (int j = 1; j < stage->cols - 1; j += 1)
+                for (int j = 0; j < stage->cols; j += 1)
                 {
                     if (stage->stageArea[i][j] != 'X')
                     {
                         unsigned int chanceToChooseCase = rand() % 4;
-                        my_delay(50);
+                        // my_delay(50);
                         if (chanceToChooseCase == 0)
                         {
                             newRow = i;
@@ -173,18 +235,18 @@ void initializeStage(Stage *stage)
 
         /* Randomisation de la case d'après (gauche, droite, haut ou bas) */
         unsigned int test = rand() % 2;
-        my_delay(50);
+        // my_delay(50);
         if (test == 0)
         {
             unsigned int roomRowNext = rand() % 3; // Cas 0 Row + 0 / Cas 1 Row + 1 / Cas 2 Row - 1
-            my_delay(50);
+            // my_delay(50);
             if (roomRowNext == 0)
             {
                 unsigned int caseZeroTest = rand() % 2; // Cas 0 Col + 1 - Cas 1 Col - 1
-                my_delay(50);
+                // my_delay(50);
                 if (caseZeroTest == 0)
                 {
-                    if ((newCol + 1) <= stage->cols)
+                    if ((newCol + 1) < stage->cols)
                     {
                         if (stage->stageArea[newRow][newCol + 1] == 'X')
                         {
@@ -247,14 +309,14 @@ void initializeStage(Stage *stage)
         else if (test == 1)
         {
             unsigned int roomColNext = rand() % 3;
-            my_delay(50);
+            // my_delay(50);
             if (roomColNext == 0)
             {
-                unsigned int caseZeroTest = rand() % 2; // Cas 0 Col + 1 - Cas 1 Col - 1
-                my_delay(50);
+                unsigned int caseZeroTest = rand() % 2; // Cas 0 Row + 1 - Cas 1 Row - 1
+                // my_delay(50);
                 if (caseZeroTest == 0)
                 {
-                    if ((newRow + 1) <= stage->rows)
+                    if ((newRow + 1) < stage->rows)
                     {
                         if (stage->stageArea[newRow + 1][newCol] == 'X')
                         {
@@ -315,7 +377,7 @@ void initializeStage(Stage *stage)
             }
         }
 
-        if (count == 14)
+        if (count == 5)
             finished = 1;
     }
 
@@ -327,12 +389,14 @@ void initializeStage(Stage *stage)
             if (stage->stageArea[i][j] == 'R')
             {
                 stage->stageAreaReal[i][j] = importRandomRoomFromFile();
-                my_delay(1000);
+                my_delay(800);
             }
             else if (stage->stageArea[i][j] == 'S')
             {
                 stage->stageAreaReal[i][j] = createSpawnRoom(9, 15);
             }
+            else
+                stage->stageAreaReal[i][j] = createEmptyRoom(9, 15);
         }
     }
 
@@ -416,21 +480,14 @@ void freeStage(Stage *stage)
     {
         for (int j = 0; j < stage->cols; j += 1)
         {
-            if (stage->stageArea[i][j] != 'X')
-            {
-                freeArray2D(stage->stageAreaReal[i][j], 9);
-            }
+            freeArray2D(stage->stageAreaReal[i][j], 9);
         }
     }
-    free(stage);
+    // free(stage);
 }
 
 void freePlayer(Player *player)
 {
     free(player->name);
-    for (int i = 0; i < 100; i++)
-    {
-        free(player->object[i]);
-    }
-    free(player);
+    // free(player);
 }
