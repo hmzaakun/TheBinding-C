@@ -604,3 +604,11 @@ void delay(int number_of_milli_seconds)
     while (clock() < start_time + milli_seconds)
         ;
 }
+
+void my_delay(int number_of_milli_seconds) /*Pause l'application pour i ms*/
+{
+    clock_t start, end;
+    start = clock();
+    while (((end = clock()) - start) <= ((number_of_milli_seconds * CLOCKS_PER_SEC) / 1000))
+        ;
+}

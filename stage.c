@@ -1,9 +1,12 @@
 #include <time.h>
 #include <unistd.h>
 #include <termios.h>
+#include <errno.h>
 #include <ctype.h>
 #include "stage.h"
 #include "room.h"
+
+struct termios orig_termios;
 
 void enableRawMode()
 {
@@ -19,20 +22,63 @@ void disableRawMode()
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
 }
 
+char getCharTypedByUser()
+{
+    char c;
+    enableRawMode();
+    while (read(STDIN_FILENO, &c, 1) == 1 && c != 'q')
+    {
+        // printf("%d ('%c')\r\n", c, c);
+        return c;
+    }
+}
+
 void play(Stage *stage, Player *player)
 {
     initializeGame(stage, player);
+    // printAllRoomOfStage(stage);
+
     int inGame = 1;
     while (inGame != 0)
     {
-        char val;
-        scanf("%c", &val);
-        if (val == 'z')
+        char c = getCharTypedByUser();
+        disableRawMode();
+        system("clear");
+        // printf("%c\r\n", c);
+        if (c == 'z')
+        {
+            if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] == ' ')
+            {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] = 'P';
+                player->currX = player->currX - 1;
+            }
+        }
+        else if (c == 's')
         {
             if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX + 1][player->currY] == ' ')
             {
                 stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
-                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] = 'P';
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX + 1][player->currY] = 'P';
+                player->currX = player->currX + 1;
+            }
+        }
+        else if (c == 'q')
+        {
+            if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY - 1] == ' ')
+            {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY - 1] = 'P';
+                player->currY = player->currY - 1;
+            }
+        }
+        else if (c == 'd')
+        {
+            if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY + 1] == ' ')
+            {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY + 1] = 'P';
+                player->currY = player->currY + 1;
             }
         }
         printCurrentRoomOfPlayer(stage, player);
@@ -59,6 +105,7 @@ void printCurrentRoomOfPlayer(Stage *stage, Player *player)
 
 void initializeStage(Stage *stage)
 {
+    printf("Generating the stage, wait a few second...\n");
     stage->rows = 9;
     stage->cols = 9;
     srand(time(NULL));
@@ -82,7 +129,7 @@ void initializeStage(Stage *stage)
         if (spawnRow > 2 && spawnRow < 7)
             flag = 1;
     }
-    delay(1000);
+    my_delay(500);
     flag = 0;
     while (flag != 1)
     {
@@ -112,6 +159,7 @@ void initializeStage(Stage *stage)
                     if (stage->stageArea[i][j] != 'X')
                     {
                         unsigned int chanceToChooseCase = rand() % 4;
+                        my_delay(50);
                         if (chanceToChooseCase == 0)
                         {
                             newRow = i;
@@ -125,13 +173,15 @@ void initializeStage(Stage *stage)
 
         /* Randomisation de la case d'après (gauche, droite, haut ou bas) */
         unsigned int test = rand() % 2;
-        // delay(50);
+        my_delay(50);
         if (test == 0)
         {
             unsigned int roomRowNext = rand() % 3; // Cas 0 Row + 0 / Cas 1 Row + 1 / Cas 2 Row - 1
+            my_delay(50);
             if (roomRowNext == 0)
             {
                 unsigned int caseZeroTest = rand() % 2; // Cas 0 Col + 1 - Cas 1 Col - 1
+                my_delay(50);
                 if (caseZeroTest == 0)
                 {
                     if ((newCol + 1) <= stage->cols)
@@ -197,9 +247,11 @@ void initializeStage(Stage *stage)
         else if (test == 1)
         {
             unsigned int roomColNext = rand() % 3;
+            my_delay(50);
             if (roomColNext == 0)
             {
                 unsigned int caseZeroTest = rand() % 2; // Cas 0 Col + 1 - Cas 1 Col - 1
+                my_delay(50);
                 if (caseZeroTest == 0)
                 {
                     if ((newRow + 1) <= stage->rows)
@@ -275,7 +327,7 @@ void initializeStage(Stage *stage)
             if (stage->stageArea[i][j] == 'R')
             {
                 stage->stageAreaReal[i][j] = importRandomRoomFromFile();
-                delay(1000);
+                my_delay(1000);
             }
             else if (stage->stageArea[i][j] == 'S')
             {

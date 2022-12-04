@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
     Stage stage;
     Player player;
     play(&stage, &player);
-    // printAllRoomOfStage(&stage);
-    // freeStage(&stage);
+    freeStage(&stage);
+    freePlayer(&player);
 
     return 0;
 }

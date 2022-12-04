@@ -19,6 +19,7 @@ int **createSpawnRoom(unsigned int rows, unsigned int columns);
 void initalizingSpawnRoom(int **arr, unsigned int rows, unsigned int columns);
 void printArray2D(int **arr, unsigned int rows, unsigned int columns);
 void freeArray2D(int **arr, unsigned int rows);
-void delay(int number_of_milli_seconds);
+void delay(int number_of_milli_seconds);    // Ne semble pas fonctionner sur linux
+void my_delay(int number_of_milli_seconds); // Fonctionne sur linux
 
 #endif

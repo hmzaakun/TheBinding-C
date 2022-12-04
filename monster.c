@@ -75,42 +75,42 @@ void addMonsterToFile()
     if (f != NULL)
     {
         char toWrite[100];
-        fputs("---\n", f);
+        fputs("---", f);
 
         printf("Nom du monstre :\n");
         fputs("name=", f);
-        fputs(gets(toWrite), f);
-        fputc('\n', f);
+        fputs(fgets(toWrite, 30, stdin), f);
+        // fputc('\n', f);
 
         printf("hpMax (float ex:5.5) :\n");
         fputs("hpMax=", f);
-        fputs(gets(toWrite), f);
-        fputc('\n', f);
+        fputs(fgets(toWrite, 30, stdin), f);
+        // fputc('\n', f);
 
         printf("Shoot (true ou false) :\n");
-        gets(toWrite);
+        fgets(toWrite, 30, stdin);
         if (toWrite[0] == 't' && toWrite[1] == 'r' && toWrite[2] == 'u' && toWrite[3] == 'e')
         {
             fputs("shoot=", f);
             fputs(toWrite, f);
-            fputc('\n', f);
+            // fputc('\n', f);
             printf("Spectral Shoot (true ou false) :\n");
-            gets(toWrite);
+            fgets(toWrite, 30, stdin);
             if (toWrite[0] == 't' && toWrite[1] == 'r' && toWrite[2] == 'u' && toWrite[3] == 'e')
             {
                 fputs("ss=", f);
                 fputs(toWrite, f);
-                fputc('\n', f);
+                // fputc('\n', f);
             }
         }
 
         printf("Flight (true ou false) :\n");
-        gets(toWrite);
+        fgets(toWrite, 30, stdin);
         if (toWrite[0] == 't' && toWrite[1] == 'r' && toWrite[2] == 'u' && toWrite[3] == 'e')
         {
             fputs("flight=", f);
             fputs(toWrite, f);
-            fputc('\n', f);
+            // fputc('\n', f);
         }
         fclose(f);
     }

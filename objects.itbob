@@ -1,4 +1,4 @@
-{19}
+{21}
 ---
 name=<3
 hpMax=1
@@ -69,3 +69,14 @@ name=Cookies
 hpMax=1
 shield=0
 dmg=0
+---
+name=Boomerang
+hpMax=0
+shield=0
+dmg=3
+ss=true
+---
+name=Epee
+hpMax=0
+shield=0
+dmg=6

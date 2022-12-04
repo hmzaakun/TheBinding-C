@@ -6,8 +6,10 @@
 #ifndef STAGE
 #define STAGE
 
+// struct termios orig_termios;
 void enableRawMode();
 void disableRawMode();
+char getCharTypedByUser();
 
 struct Player
 {
