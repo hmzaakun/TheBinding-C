@@ -1,9 +1,42 @@
+#include <time.h>
+#include <unistd.h>
+#include <termios.h>
+#include <ctype.h>
 #include "stage.h"
 #include "room.h"
-#include <time.h>
+
+void enableRawMode()
+{
+    tcgetattr(STDIN_FILENO, &orig_termios);
+    atexit(disableRawMode);
+    struct termios raw = orig_termios;
+    raw.c_lflag &= ~(ECHO | ICANON);
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+}
+
+void disableRawMode()
+{
+    tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
+}
 
 void play(Stage *stage, Player *player)
 {
+    initializeGame(stage, player);
+    int inGame = 1;
+    while (inGame != 0)
+    {
+        char val;
+        scanf("%c", &val);
+        if (val == 'z')
+        {
+            if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX + 1][player->currY] == ' ')
+            {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] = 'P';
+            }
+        }
+        printCurrentRoomOfPlayer(stage, player);
+    }
 }
 
 void initializeGame(Stage *stage, Player *player)

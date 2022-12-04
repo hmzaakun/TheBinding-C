@@ -27,9 +27,7 @@ int main(int argc, char *argv[])
 
     Stage stage;
     Player player;
-    // initializeStage(&stage);
-    initializeGame(&stage, &player);
-    // printArray2D(stage.stageArea, stage.rows, stage.cols);
+    play(&stage, &player);
     // printAllRoomOfStage(&stage);
     // freeStage(&stage);
 

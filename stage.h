@@ -6,6 +6,9 @@
 #ifndef STAGE
 #define STAGE
 
+void enableRawMode();
+void disableRawMode();
+
 struct Player
 {
     char *name;
