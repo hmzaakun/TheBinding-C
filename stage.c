@@ -35,10 +35,6 @@ char getCharTypedByUser()
 
 void ifDoor(Stage *stage, Player *player)
 {
-    // stage->stageAreaReal[i][j][8][7] = 'D';  // Porte du bas
-    // stage->stageAreaReal[i][j][0][7] = 'D';  // Porte du haut
-    // stage->stageAreaReal[i][j][4][14] = 'D'; // Porte de droite
-    // stage->stageAreaReal[i][j][4][0] = 'D';  // Porte de gauche
     if (player->currY == 7)
     {
         if (player->currX == 0) // Porte du haut
