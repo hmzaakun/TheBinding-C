@@ -52,9 +52,9 @@ void ifDoor(Stage *stage, Player *player)
             player->currX = 1;
         }
     }
-    else if (player->currY == 4)
+    else if (player->currX == 4)
     {
-        if (player->currX == 0) // Porte de gauche
+        if (player->currY == 0) // Porte de gauche
         {
             player->currStageY -= 1;
             player->currY = 13;
@@ -91,6 +91,7 @@ void play(Stage *stage, Player *player)
             }
             else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX - 1][player->currY] == 'D')
             {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
                 player->currX = player->currX - 1;
                 ifDoor(stage, player);
             }
@@ -105,6 +106,7 @@ void play(Stage *stage, Player *player)
             }
             else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX + 1][player->currY] == 'D')
             {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
                 player->currX = player->currX + 1;
                 ifDoor(stage, player);
             }
@@ -119,6 +121,7 @@ void play(Stage *stage, Player *player)
             }
             else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY - 1] == 'D')
             {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
                 player->currY = player->currY - 1;
                 ifDoor(stage, player);
             }
@@ -133,6 +136,7 @@ void play(Stage *stage, Player *player)
             }
             else if (stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY + 1] == 'D')
             {
+                stage->stageAreaReal[player->currStageX][player->currStageY][player->currX][player->currY] = ' ';
                 player->currY = player->currY + 1;
                 ifDoor(stage, player);
             }
@@ -377,7 +381,7 @@ void initializeStage(Stage *stage)
             }
         }
 
-        if (count == 5)
+        if (count == 14)
             finished = 1;
     }
 
