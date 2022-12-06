@@ -62,13 +62,13 @@ system("clear");
     {
 
         case 1:
-            menuParametreObjet
+            menuParametreObjet();
             break;
         case 2:
-           menuParametreObjet
+           menuParametreObjet();
             break;
          case 3:
-           menuParametreObjet
+           menuParametreObjet();
             break;
     	case 4:
            // 
@@ -107,14 +107,13 @@ void menuParametreRoom(){
 
         case 1:
         // fonc
-          menuParametreRoom()
+          menuParametreRoom();
             break;
         case 2:
-         menuParametreRoom()
+         menuParametreRoom();
             break;
          case 3:
-          menuParametreRoom()
-            break;
+          menuParametreRoom();
           case 4:
             menuParametre();
             break;
