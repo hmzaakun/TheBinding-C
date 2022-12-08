@@ -28,7 +28,9 @@ void addMonsterToFile(); // Ajoute les infos à la fin du fichiers mais reste le
 
 /*Fonctions utilitaire*/
 void removeMonsterById(unsigned int id);
+void removeMonster();
 void modifyMonsterById(unsigned int id);
+void modifyMonster();
 void addMonster(); // Ajoute le monstre voulu à la fin du fichier
 void printMonster(Monster *monster);
 void printAllMonster();

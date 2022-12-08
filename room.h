@@ -6,7 +6,8 @@
 
 void addRoom();
 void deleteRoom(); // EN DEVELOPEMENT
-void showRoomId(); // EN DEVELOPEMENT
+void showRoomId(unsigned int index); // EN DEVELOPEMENT
+void showRoom();
 void updateRoom();
 int **importRoomFromFile(unsigned int index, unsigned int maxRoomNumber);
 int **importRandomRoomFromFile();

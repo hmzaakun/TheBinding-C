@@ -7,31 +7,40 @@ void menuParametreMonstre(){
     
     do {
     system("clear");
+     	printf("\n     Monstre\n");
         printf("\nAJOUTER => 1\n");
         printf("SUPPRIMER => 2\n");
         printf("MODIF => 3\n");
-        printf("RETOUR => 4\n");
-        printf("QUITTER => 5\n");
+        printf("SHOW => 4\n");
+        printf("RETOUR => 5\n");
+        printf("QUITTER => 6\n");
          printf("Votre choix =>:");
         scanf("%d", &choix);
-    }while(choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5);
+    }while(choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5 && choix != 6);
 system("clear");
     switch( choix )
     {
 
         case 1:
+          addMonster();
           menuParametreMonstre();
             break;
         case 2:
+        removeMonster();
           menuParametreMonstre();
             break;
         case 3:
+        modifyMonster();
         menuParametreMonstre();
             break;
-        case 4:
-            menuParametre();
+          case 4:
+        printAllMonster();
+       menuParametreMonstre();
             break;
         case 5:
+      menuParametre();
+            break;
+        case 6:
 
             return;
 
@@ -49,32 +58,41 @@ void menuParametreObjet(){
    
     do {
     system("clear");
+     	printf("\n     Objet\n");
         printf("\nAJOUTER => 1\n");
         printf("SUPPRIMER => 2\n");
         printf("MODIF => 3\n");
-        printf("RETOUR => 4\n");
-        printf("QUITTER => 5\n");
+        printf("SHOW => 4\n");
+        printf("RETOUR => 5\n");
+        printf("QUITTER => 6\n");
          printf("Votre choix =>:");
         scanf("%d", &choix);
-    }while(choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5);
+    }while(choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5 && choix != 6);
 system("clear");
     switch( choix )
     {
 
         case 1:
+            addObject();
             menuParametreObjet();
             break;
         case 2:
+        	removeObject();
            menuParametreObjet();
             break;
          case 3:
+         modifyObject();
            menuParametreObjet();
             break;
     	case 4:
-           // 
+           printAllObjects();
            menuParametre();
             break;
-        case 5:
+            case 5:
+           removeObject();
+           menuParametre();
+            break;
+        case 6:
 
             return;
 
@@ -93,32 +111,41 @@ void menuParametreRoom(){
     system("clear");
     do {
     system("clear");
+     	printf("\n     ROOM\n");
         printf("\nAJOUTER => 1\n");
         printf("SUPPRIMER => 2\n");
         printf("MODIF => 3\n");
-        printf("RETOUR => 4\n");
-        printf("QUITTER => 5\n");
+        printf("SHOW => 4\n");
+        printf("RETOUR => 5\n");
+        printf("QUITTER => 6\n");
         printf("Votre choix =>:");
         scanf("%d", &choix);
-    }while(choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5);
+    }while(choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5 && choix != 6);
   system("clear");
     switch( choix )
     {
 
         case 1:
-        // fonc
+          addRoom();
           menuParametreRoom();
-            break;
+         break;
         case 2:
+         deleteRoom();
          menuParametreRoom();
-            break;
+         break;
          case 3:
+          updateRoom();
           menuParametreRoom();
+           break;
+          
           case 4:
+            showRoom();
+            menuParametreRoom();
+            break;
+             case 5:
             menuParametre();
             break;
-        case 5:
-
+        case 6:
             return;
 
         default:;

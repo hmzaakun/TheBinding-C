@@ -1,4 +1,4 @@
-{10}
+{11}
 ---
 name=Pooter
 hpMax=8
@@ -38,4 +38,8 @@ shoot=true
 ---
 name=Rabato
 hpMax=23
+shoot=true
+---
+name=nessim
+hpMax=3.1
 shoot=true

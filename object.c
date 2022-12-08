@@ -10,6 +10,15 @@ Object *importObjectByName(char name[])
     // initializeObject(object);
     // return object;
 }
+void modifyObject(){
+unsigned int id;
+ do
+    {
+        printf("id?\n");
+        scanf("%d", &id);
+    } while (id<= 1 || id >= getNumberOfObjectInFile());
+
+}
 
 void modifyObjectById(unsigned int id)
 {
@@ -53,9 +62,9 @@ void addObjectToFile()
     FILE *f = fopen("objects.itbob", "a");
     if (f != NULL)
     {
+     getchar();
         char toWrite[100];
-        fputs("---", f);
-
+        fputs("---\n", f);
         printf("Nom de l'object :\n");
         fputs("name=", f);
         fputs(fgets(toWrite, 30, stdin), f);
@@ -110,6 +119,13 @@ void addObjectToFile()
         printf("impossible de lire le fichier");
         fclose(f);
     }
+}
+void removeObject()
+{
+unsigned int id;
+ printf("id?\n");
+ scanf("%d", &id);
+ removeObjectById(id);
 }
 
 void removeObjectById(unsigned int id)
@@ -214,6 +230,7 @@ Object *importRandomObject()
     printf("ID du random Object : %d\n", randomObjectId);
     return importObjectById(randomObjectId);
 }
+
 
 Object *importObjectById(unsigned int id)
 {
@@ -357,6 +374,8 @@ void printAllObjects()
         freeObject(object);
     }
 }
+
+
 
 unsigned int getNumberOfObjectInFile()
 {

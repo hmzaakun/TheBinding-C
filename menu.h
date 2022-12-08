@@ -8,5 +8,6 @@ void menuParametreRoom();
 void menuParametreObjet(); // EN DEVELOPEMENT
 void menuParametreMonstre(); // EN DEVELOPEMENT
 void menuParametreRoom();
+void playBob();
 
 #endif

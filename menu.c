@@ -1,9 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "menu.h"
+#include "room.h"
+#include "monster.h"
+#include "object.h"
+#include "stage.h"
 
 
+void playBob(){
 
+Stage stage;
+    Player player;
+    play(&stage, &player);
+    // initializeStage(&stage);
+    // printArray2D(stage.stageArea, 9, 9);
+    freeStage(&stage);
+    freePlayer(&player);
+    menu();
+    
+    }
+    
 void menuParametre(){
     int choix;
   
@@ -59,10 +74,12 @@ void menu(){
         scanf("%d", &choix);
     }while(choix != 1 && choix != 2 && choix != 3);
   system("clear");
+  
     switch ( choix )
     {
         case 1:
-           
+   playBob();
+   
             break;
         case 2:
             menuParametre();
@@ -77,11 +94,6 @@ void menu(){
 }
 
 
-int main() {
- system("clear");
-    menu();
-    return 0;
-}
 
 
 

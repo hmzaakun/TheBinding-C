@@ -12,12 +12,15 @@ Monster *importMonsterByName(char name[])
 
 void printAllMonster()
 {
+char* end;
     FILE *f = fopen("monsters.mtbob", "r");
     for (unsigned int i = 1; i <= getNumberOfMonsterInFile(); i++)
     {
         Monster *monster = importMonsterById(i);
         printMonster(monster);
     }
+    printf("continué : 1");
+    scanf(" %c",end);
     fclose(f);
 }
 
@@ -29,7 +32,13 @@ Monster *importRandomMonster()
     // printf("ID du random Monster : %d\n", randomMonsterId);
     return importMonsterById(randomMonsterId);
 }
+void modifyMonster()
+{
+unsigned int id;
 
+printf("\nId?");
+scanf("%d",&id);
+}
 void modifyMonsterById(unsigned int id)
 {
     FILE *f = fopen("monsters.mtbob", "r");
@@ -74,8 +83,9 @@ void addMonsterToFile()
     FILE *f = fopen("monsters.mtbob", "a");
     if (f != NULL)
     {
+     getchar();
         char toWrite[100];
-        fputs("---", f);
+        fputs("---\n", f);
 
         printf("Nom du monstre :\n");
         fputs("name=", f);
@@ -120,7 +130,13 @@ void addMonsterToFile()
         fclose(f);
     }
 }
-
+void removeMonster()
+{
+unsigned int id;
+printf("index? \n");
+scanf("%d", &id);
+removeMonsterById(id);
+}
 void removeMonsterById(unsigned int id)
 {
     int numberOfMonsterInFile = getNumberOfMonsterInFile();

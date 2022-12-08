@@ -26,12 +26,6 @@ int main(int argc, char *argv[])
     // printObject(object);
     // freeObject(object);
 
-    Stage stage;
-    Player player;
-    play(&stage, &player);
-    // initializeStage(&stage);
-    // printArray2D(stage.stageArea, 9, 9);
-    freeStage(&stage);
-    freePlayer(&player);
+   menu();
     return 0;
 }

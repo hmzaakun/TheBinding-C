@@ -177,7 +177,7 @@ void initializeStage(Stage *stage)
     {
         for (int j = 0; j < stage->cols; j += 1)
         {
-            stage->stageArea[i][j] = 'X';
+            stage->stageArea[i][j] = ' ';
         }
     }
 
@@ -218,7 +218,7 @@ void initializeStage(Stage *stage)
             {
                 for (int j = 0; j < stage->cols; j += 1)
                 {
-                    if (stage->stageArea[i][j] != 'X')
+                    if (stage->stageArea[i][j] != ' ')
                     {
                         unsigned int chanceToChooseCase = rand() % 4;
                         // my_delay(50);
@@ -248,7 +248,7 @@ void initializeStage(Stage *stage)
                 {
                     if ((newCol + 1) < stage->cols)
                     {
-                        if (stage->stageArea[newRow][newCol + 1] == 'X')
+                        if (stage->stageArea[newRow][newCol + 1] == ' ')
                         {
                             stage->stageArea[newRow][newCol + 1] = 'R';
                             // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -263,7 +263,7 @@ void initializeStage(Stage *stage)
                 {
                     if ((newCol - 1) >= 0)
                     {
-                        if (stage->stageArea[newRow][newCol - 1] == 'X')
+                        if (stage->stageArea[newRow][newCol - 1] == ' ')
                         {
                             stage->stageArea[newRow][newCol - 1] = 'R';
                             // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -279,7 +279,7 @@ void initializeStage(Stage *stage)
             {
                 if (newRow + 1 < stage->rows)
                 {
-                    if (stage->stageArea[newRow + 1][newCol] == 'X')
+                    if (stage->stageArea[newRow + 1][newCol] == ' ')
                     {
                         stage->stageArea[newRow + 1][newCol] = 'R';
                         // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -294,7 +294,7 @@ void initializeStage(Stage *stage)
             {
                 if (newRow - 1 >= 0)
                 {
-                    if (stage->stageArea[newRow - 1][newCol] == 'X')
+                    if (stage->stageArea[newRow - 1][newCol] == ' ')
                     {
                         stage->stageArea[newRow - 1][newCol] = 'R';
                         // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -318,7 +318,7 @@ void initializeStage(Stage *stage)
                 {
                     if ((newRow + 1) < stage->rows)
                     {
-                        if (stage->stageArea[newRow + 1][newCol] == 'X')
+                        if (stage->stageArea[newRow + 1][newCol] == ' ')
                         {
                             stage->stageArea[newRow + 1][newCol] = 'R';
                             // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -333,7 +333,7 @@ void initializeStage(Stage *stage)
                 {
                     if ((newRow - 1) >= 0)
                     {
-                        if (stage->stageArea[newRow - 1][newCol] == 'X')
+                        if (stage->stageArea[newRow - 1][newCol] == ' ')
                         {
                             stage->stageArea[newRow - 1][newCol] = 'R';
                             // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -349,7 +349,7 @@ void initializeStage(Stage *stage)
             {
                 if (newCol + 1 < stage->cols)
                 {
-                    if (stage->stageArea[newRow][newCol + 1] == 'X')
+                    if (stage->stageArea[newRow][newCol + 1] == ' ')
                     {
                         stage->stageArea[newRow][newCol + 1] = 'R';
                         // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -364,7 +364,7 @@ void initializeStage(Stage *stage)
             {
                 if (newCol - 1 >= 0)
                 {
-                    if (stage->stageArea[newRow][newCol - 1] == 'X')
+                    if (stage->stageArea[newRow][newCol - 1] == ' ')
                     {
                         stage->stageArea[newRow][newCol - 1] = 'R';
                         // printf("newRow : %d newCol: %d\n", newRow, newCol);
@@ -405,11 +405,11 @@ void initializeStage(Stage *stage)
     {
         for (int j = 0; j < stage->cols; j += 1)
         {
-            if (stage->stageArea[i][j] != 'X')
+            if (stage->stageArea[i][j] != ' ')
             {
                 if (i + 1 < 9)
                 {
-                    if (stage->stageArea[i + 1][j] != 'X')
+                    if (stage->stageArea[i + 1][j] != ' ')
                     {
                         // printf("case1\n");
                         stage->stageAreaReal[i][j][8][7] = 'D'; // Porte du bas
@@ -417,7 +417,7 @@ void initializeStage(Stage *stage)
                 }
                 if (i - 1 >= 0)
                 {
-                    if (stage->stageArea[i - 1][j] != 'X')
+                    if (stage->stageArea[i - 1][j] != ' ')
                     {
                         // printf("case2\n");
                         stage->stageAreaReal[i][j][0][7] = 'D'; // Porte du haut
@@ -425,7 +425,7 @@ void initializeStage(Stage *stage)
                 }
                 if (j + 1 < 15)
                 {
-                    if (stage->stageArea[i][j + 1] != 'X')
+                    if (stage->stageArea[i][j + 1] != ' ')
                     {
                         // printf("case3\n");
                         stage->stageAreaReal[i][j][4][14] = 'D'; // Porte de droite
@@ -433,7 +433,7 @@ void initializeStage(Stage *stage)
                 }
                 if (j - 1 >= 0)
                 {
-                    if (stage->stageArea[i][j - 1] != 'X')
+                    if (stage->stageArea[i][j - 1] != ' ')
                     {
                         // printf("case4\n");
                         stage->stageAreaReal[i][j][4][0] = 'D'; // Porte de gauche
@@ -464,7 +464,7 @@ void printAllRoomOfStage(Stage *stage)
     {
         for (int j = 0; j < stage->cols; j += 1)
         {
-            if (stage->stageArea[i][j] != 'X')
+            if (stage->stageArea[i][j] != ' ')
             {
                 printArray2D(stage->stageAreaReal[i][j], 9, 15);
                 printf("\n");

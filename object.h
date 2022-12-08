@@ -34,5 +34,6 @@ void modifyObjectById(unsigned int id);
 void addObject(); // Ajoute le monstre voulu à la fin du fichier, le fichier ne doit pas être préalablement ouvert
 void freeObject(Object *object);
 void removeObjectById(unsigned int id);
+void removeObject();
 
 #endif

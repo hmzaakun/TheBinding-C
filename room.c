@@ -71,22 +71,33 @@ void addRoom()
 
         fclose(temp);
         fclose(f);
+        menuParametre();
     }
     else
     {
         printf("Erreur lors de l'ouverture du fichier");
     }
 }
-
-void showRoomId()
+void showRoom()
 {
-    FILE *f = fopen("maps.rtbob", "r");
-    unsigned int index;
+unsigned int index;
+
     do
     {
-        printf("index?\n");
+        printf("index? \n");
         scanf("%d", &index);
-    } while (index <= 1 || index >= getNumberOfMapInFile());
+    } while (index < 1 || index >= getNumberOfMapInFile());
+    
+    showRoomId(index);
+    
+    
+}
+
+void showRoomId(unsigned int index)
+{
+    FILE *f = fopen("maps.rtbob", "r");
+ 
+   
 
     char chaine[100];
     int rowStart = 1 + 10 * (index - 1);
@@ -108,8 +119,11 @@ void showRoomId()
                 printf("%d:%s", newCount++, chaine);
             }
         }
-
+      char end;
+       printf("Fini?\n");
+       scanf(" %c",&end);
         fseek(f, 0, SEEK_SET);
+        fclose(f);
     }
     else
     {
@@ -140,7 +154,7 @@ void updateRoom()
 
     int startDel = 1 + (index - 1) * 10;
     int endDel = startDel + 9;
-    showRoomId();
+    showRoomId(index);
 
     do
     {

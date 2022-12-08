@@ -1,105 +1,55 @@
-{11}
+{6}
 [9|15]1
-WWWWWWWDWWWWWWW
-WRG         G W
-WOG         GGW
-W O SOR R S   W
-DOO  O        D
+WWWWWWWWWWWWWWW
+WHG         G W
+WGG         GGW
+W     RRR     W
+W     RRR     W
+W     RRR     W
+WGG         GGW
+W G         GHW
+WWWWWWWWWWWWWWW
+[9|15]2
+WWWWWWWWWWWWWWW
+WHG         G W
+WGG         GGW
+W   S R R S   W
+W             W
 W   S R R S   W
 WGG         GGW
 W G         GHW
-WWWWWWWDWWWWWWW
-[9|15]2
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
+WWWWWWWWWWWWWWW
 [9|15]3
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
+WWWWWWWWWWWWWWW
+WHG         G W
+WGG         GGW
+W   SSSS      W
+W   SHR       W
+W   SR        W
+WGG         GGW
+W G         GHW
+WWWWWWWWWWWWWWW
 [9|15]4
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
+WWWWWWWWWWWWWWW
+WHG         G W
+WGG         GGW
+W       SSSS  W
+W   SHR       W
+W   SR        W
+WGG    SS   GGW
+W G         GHW
+WWWWWWWWWWWWWWW
 [9|15]5
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
+WWWWWWWWWWWWWWW
+WHG         G W
+WGG         GGW
+W       SSSS  W
+W   RRRR      W
+W   S         W
+WGG   S     GGW
+W G         GHW
+WWWWWWWWWWWWWWW
 [9|15]6
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
-[9|15]7
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
-[9|15]8
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
-[9|15]9
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
-[9|15]10
-WWWWWWWDWWWWWWW
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-W             W
-WWWWWWWDWWWWWWW
-[9|15]11
 WWWWWWWDWWWWWWW
 W             W
 W             W
