@@ -120,7 +120,7 @@ void showRoomId(unsigned int index)
             }
         }
       char end;
-       printf("Fini?\n");
+       printf("Suite? 1;\n");
        scanf(" %c",&end);
         fseek(f, 0, SEEK_SET);
         fclose(f);
